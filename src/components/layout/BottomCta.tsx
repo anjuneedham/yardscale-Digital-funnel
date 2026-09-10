@@ -24,7 +24,7 @@ export function BottomCta({
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[24rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-50 blur-[120px]"
-        style={{ background: "radial-gradient(closest-side, rgba(163,230,53,0.13), transparent)" }}
+        style={{ background: "radial-gradient(closest-side, rgba(189,250,9,0.15), transparent)" }}
       />
       <div className="container-x max-w-3xl text-center">
         <h2 className="text-balance text-3xl font-semibold leading-[1.06] tracking-[-0.03em] sm:text-4xl lg:text-5xl">

@@ -1,5 +1,12 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
+
+/** The brand mark, inlined at build time so the card needs no network fetch. */
+const markDataUri = `data:image/svg+xml;base64,${Buffer.from(
+  readFileSync(join(process.cwd(), "src/app/icon.svg")),
+).toString("base64")}`;
 
 export const alt = `${site.name} — Build the growth system behind your business`;
 export const size = { width: 1200, height: 630 };
@@ -26,33 +33,39 @@ export default function OpengraphImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-          <div
-            style={{
-              width: 14,
-              height: 14,
-              borderRadius: 999,
-              background: "#a3e635",
-              display: "flex",
-            }}
-          />
-          <div
-            style={{
-              color: "#989898",
-              fontSize: 22,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              display: "flex",
-            }}
-          >
-            Growth Operator Agency
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <img src={markDataUri} width={72} height={72} alt="" />
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            <div
+              style={{
+                display: "flex",
+                color: "#f7f6f2",
+                fontSize: 30,
+                fontWeight: 700,
+                letterSpacing: "0.02em",
+                textTransform: "uppercase",
+              }}
+            >
+              Yard<span style={{ color: "#bdfa09" }}>Scale</span>
+            </div>
+            <div
+              style={{
+                color: "#9d9b95",
+                fontSize: 17,
+                letterSpacing: "0.34em",
+                textTransform: "uppercase",
+                display: "flex",
+              }}
+            >
+              Digital
+            </div>
           </div>
         </div>
 
         <div
           style={{
             display: "flex",
-            color: "#f4f4f4",
+            color: "#f7f6f2",
             fontSize: 82,
             fontWeight: 600,
             lineHeight: 1.05,
@@ -74,7 +87,7 @@ export default function OpengraphImage() {
                     border: "1px solid #373737",
                     borderRadius: 8,
                     background: "#111111",
-                    color: i === stages.length - 1 ? "#a3e635" : "#c4c4c4",
+                    color: i === stages.length - 1 ? "#bdfa09" : "#cac8c2",
                     fontSize: 20,
                   }}
                 >
@@ -87,8 +100,10 @@ export default function OpengraphImage() {
             ))}
           </div>
 
-          <div style={{ display: "flex", color: "#989898", fontSize: 26 }}>
-            {site.name.toLowerCase().replace(" ", "")}.com
+          <div style={{ display: "flex", alignItems: "center", gap: "14px", fontSize: 26 }}>
+            <div style={{ display: "flex", color: "#9d9b95" }}>
+              {site.disciplines.join("  /  ")}
+            </div>
           </div>
         </div>
       </div>

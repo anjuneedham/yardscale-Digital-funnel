@@ -18,7 +18,7 @@ export function BuildRoom() {
   const hasContent = contentItems.length > 0;
 
   return (
-    <Section id="build-room" divider>
+    <Section id="build-room" divider tone="raised">
       <SectionHeader
         eyebrow="Content"
         title="From the YardScale Build Room."
@@ -86,7 +86,7 @@ export function BuildRoom() {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-full flex-col rounded-card border border-line bg-panel/70 p-6 transition-colors hover:border-line-strong hover:bg-raised/60"
+                className="flex h-full flex-col card card-interactive p-6"
                 onClick={() => track("content_channel_click", { channel: item.channel, id: item.id })}
               >
                 <p className="label-mono">{item.format}</p>
@@ -100,7 +100,7 @@ export function BuildRoom() {
           ))}
         </ul>
       ) : (
-        <div className="mt-10 rounded-card border border-line bg-panel/40 p-6 sm:p-8">
+        <div className="mt-10 card p-6 sm:p-8">
           <p className="label-mono mb-6">What gets published here</p>
           <ul className="grid gap-x-10 gap-y-5 sm:grid-cols-2">
             {contentFormats.map((item) => (

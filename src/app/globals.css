@@ -6,25 +6,28 @@
 ------------------------------------------------------------------- */
 
 @theme {
-  /* Surfaces — true neutral black, matching the brand's black/white/lime kit */
-  --color-void: #070707;
-  --color-surface: #0b0b0b;
-  --color-panel: #111111;
-  --color-raised: #181818;
-  --color-line: #252525;
-  --color-line-strong: #373737;
+  /* Surfaces — the brand kit's black, stepped for depth */
+  --color-void: #050505;
+  --color-surface: #0a0a0a;
+  --color-panel: #101010;
+  --color-raised: #171717;
+  --color-line: #232323;
+  --color-line-strong: #383838;
 
-  /* Type */
-  --color-ink: #f4f4f4;
-  --color-ink-soft: #c4c4c4;
-  /* Both pass WCAG AA (4.5:1) against every surface token above. */
-  --color-muted: #989898;
-  --color-faint: #7f7f7f;
+  /* Type — warm off-white, sampled from the brand artwork (#f7f6f2) */
+  --color-ink: #f7f6f2;
+  --color-ink-soft: #cac8c2;
+  /* All four pass WCAG AA (4.5:1) against every surface token above;
+     the tightest pairing is faint-on-raised at 4.67:1. */
+  --color-muted: #9d9b95;
+  --color-faint: #84827c;
 
-  /* Signal — brand lime green */
-  --color-signal: #a3e635;
-  --color-signal-dim: #3f4d17;
-  --color-signal-glow: #a3e63533;
+  /* Signal — the brand lime, sampled from the logo artwork */
+  --color-signal: #bdfa09;
+  --color-signal-dim: #47610a;
+  --color-signal-glow: #bdfa0933;
+  /* Text colour for use on top of a filled signal surface (15.9:1). */
+  --color-on-signal: #0a0a0a;
   --color-warn: #f2b25e;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
@@ -72,7 +75,7 @@
 
 :root {
   color-scheme: dark;
-  --grid-line: color-mix(in oklab, #373737 45%, transparent);
+  --grid-line: color-mix(in oklab, #383838 45%, transparent);
 }
 
 * {
@@ -94,7 +97,7 @@ body {
 
 ::selection {
   background: var(--color-signal);
-  color: #0d1400;
+  color: var(--color-on-signal);
 }
 
 /* Focus visibility — accessibility baseline */
@@ -152,6 +155,67 @@ body {
     linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+}
+
+/* ------------------------------------------------------------------
+   Surface treatments
+
+   Panels are built from a hairline top highlight over a soft vertical
+   gradient rather than a heavy border, so cards read as lit from above
+   instead of as outlined boxes.
+------------------------------------------------------------------- */
+
+@utility card {
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--color-raised) 65%, transparent) 0%,
+      var(--color-panel) 62%
+    );
+  box-shadow:
+    inset 0 1px 0 0 color-mix(in oklab, #ffffff 6%, transparent),
+    0 24px 48px -36px #000000;
+}
+
+/* Cards that respond to the pointer — used where the card is itself a
+   choice in the funnel rather than static supporting content. */
+@utility card-interactive {
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-signal) 45%, var(--color-line));
+    box-shadow:
+      inset 0 1px 0 0 color-mix(in oklab, #ffffff 8%, transparent),
+      0 20px 44px -30px var(--color-signal-glow);
+    transform: translateY(-2px);
+  }
+}
+
+/* Soft signal bloom used behind pivotal visuals. */
+@utility signal-bloom {
+  background: radial-gradient(
+    ellipse 60% 55% at 50% 45%,
+    color-mix(in oklab, var(--color-signal) 16%, transparent),
+    transparent 70%
+  );
+}
+
+/* A short lime rule that opens a section header. */
+@utility signal-rule {
+  display: inline-block;
+  width: 2rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-signal),
+    color-mix(in oklab, var(--color-signal) 15%, transparent)
+  );
 }
 
 @utility hairline-top {

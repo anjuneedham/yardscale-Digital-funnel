@@ -9,6 +9,12 @@ export const site = {
   /** Used for canonical URLs, sitemap and Open Graph. Override with NEXT_PUBLIC_SITE_URL. */
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://yardscaledigital.com").replace(/\/$/, ""),
   tagline: "Build the growth system behind your business.",
+  /** The brand kit's own line, used where the lockup needs a voice. */
+  promise: "We build. You grow.",
+  /** The three disciplines named in the brand kit, in its order. */
+  disciplines: ["Websites", "Funnels", "Lead generation"],
+  /** The three outcomes named in the brand kit, in its order. */
+  outcomes: ["More customers", "More sales", "Real growth"],
   description:
     "YardScale Digital is a growth operator agency. We identify the bottleneck between attention and revenue, then build the infrastructure that solves it — websites, funnels, offer systems, education platforms, digital products and apps.",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@yardscaledigital.com",

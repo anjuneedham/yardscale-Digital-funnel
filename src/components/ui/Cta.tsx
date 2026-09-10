@@ -9,13 +9,16 @@ type Variant = "primary" | "secondary" | "ghost";
 type Size = "md" | "lg";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-200 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0";
 
+// The primary action is a solid lime pill: a bright top edge and a short,
+// tight drop shadow read as a physical button, where the previous wide bloom
+// read as a blur. Hover lifts it rather than spreading more glow.
 const VARIANTS: Record<Variant, string> = {
   primary:
-    "bg-signal text-[#0d1400] hover:bg-[#bfe95e] shadow-[0_0_0_1px_rgba(163,230,53,0.35),0_10px_40px_-12px_rgba(163,230,53,0.55)] hover:shadow-[0_0_0_1px_rgba(163,230,53,0.5),0_14px_48px_-10px_rgba(163,230,53,0.7)]",
+    "bg-signal font-semibold text-[color:var(--color-on-signal)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_10px_26px_-14px_rgba(189,250,9,0.7)] hover:-translate-y-0.5 hover:bg-[#cbff35] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5),0_18px_34px_-14px_rgba(189,250,9,0.85)]",
   secondary:
-    "border border-line-strong bg-raised/60 text-ink hover:border-signal/50 hover:bg-raised",
+    "border border-line-strong bg-raised/60 text-ink hover:-translate-y-0.5 hover:border-signal/60 hover:bg-raised",
   ghost: "text-ink-soft hover:text-ink",
 };
 

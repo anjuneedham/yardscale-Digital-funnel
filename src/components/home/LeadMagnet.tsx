@@ -13,7 +13,7 @@ export function LeadMagnet() {
 
   return (
     <Section id="starter-guide" divider>
-      <div className="grid gap-10 rounded-card border border-line bg-panel/60 p-6 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:p-14">
+      <div className="grid gap-10 card p-6 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:p-14">
         <div>
           <p className="label-mono">Free resource</p>
           <h2 className="mt-5 text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.025em] sm:text-4xl">

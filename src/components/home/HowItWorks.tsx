@@ -6,7 +6,7 @@ import { CtaLink, ArrowGlyph } from "@/components/ui/Cta";
 /** PROCESS. Establishes that there is a method, not an improvisation. */
 export function HowItWorks() {
   return (
-    <Section id="how-it-works" divider>
+    <Section id="how-it-works" divider tone="raised">
       <SectionHeader
         eyebrow="How YardScale works"
         title="From bottleneck to build."

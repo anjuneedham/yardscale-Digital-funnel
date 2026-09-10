@@ -46,7 +46,7 @@ export default function ResourcesPage() {
 
       {guide ? (
         <Section id="starter-guide" divider>
-          <div className="grid gap-10 rounded-card border border-line bg-panel/60 p-6 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:p-14">
+          <div className="grid gap-10 card p-6 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:p-14">
             <div>
               <p className="label-mono">{guide.kind} — free</p>
               <h2 className="mt-5 text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.025em] sm:text-4xl">
@@ -123,7 +123,7 @@ export default function ResourcesPage() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-full flex-col rounded-card border border-line bg-panel/70 p-6 transition-colors hover:border-line-strong hover:bg-raised/60"
+                  className="flex h-full flex-col card p-6 transition-colors hover:border-line-strong hover:bg-raised/60"
                 >
                   <p className="label-mono">{item.format}</p>
                   <h3 className="mt-3 text-base font-semibold leading-snug">{item.title}</h3>
@@ -134,7 +134,7 @@ export default function ResourcesPage() {
             ))}
           </ul>
         ) : (
-          <div className="mt-10 rounded-card border border-line bg-panel/40 p-6 sm:p-8">
+          <div className="mt-10 card p-6 sm:p-8">
             <p className="label-mono mb-6">What gets published here</p>
             <ul className="grid gap-x-10 gap-y-5 sm:grid-cols-2">
               {contentFormats.map((item) => (

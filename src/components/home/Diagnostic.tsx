@@ -84,7 +84,7 @@ export function Diagnostic() {
           {selected && path ? (
             <article
               key={selected.id}
-              className="animate-fade-up rounded-card border border-line bg-panel/80 p-6 sm:p-8"
+              className="animate-fade-up card p-6 sm:p-8"
             >
               <p className="label-mono">Your likely bottleneck</p>
               <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-[-0.02em] sm:text-[1.75rem]">
