@@ -57,7 +57,7 @@ export function Difference() {
             <ol className="relative">
               <span
                 aria-hidden
-                className="absolute bottom-6 left-[7px] top-2 w-px bg-[repeating-linear-gradient(to_bottom,#2a3747_0_4px,transparent_4px_9px)]"
+                className="absolute bottom-6 left-[7px] top-2 w-px bg-[repeating-linear-gradient(to_bottom,#373737_0_4px,transparent_4px_9px)]"
               />
               {OPERATING_SEQUENCE.map((item, i) => (
                 <li key={item.step} className="relative flex gap-5 pb-7 last:pb-0">

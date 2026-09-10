@@ -6,25 +6,25 @@
 ------------------------------------------------------------------- */
 
 @theme {
-  /* Surfaces */
-  --color-void: #05070a;
-  --color-surface: #080b10;
-  --color-panel: #0c1118;
-  --color-raised: #111823;
-  --color-line: #1b2532;
-  --color-line-strong: #2a3747;
+  /* Surfaces — true neutral black, matching the brand's black/white/lime kit */
+  --color-void: #070707;
+  --color-surface: #0b0b0b;
+  --color-panel: #111111;
+  --color-raised: #181818;
+  --color-line: #252525;
+  --color-line-strong: #373737;
 
   /* Type */
-  --color-ink: #eef3f9;
-  --color-ink-soft: #b8c4d2;
+  --color-ink: #f4f4f4;
+  --color-ink-soft: #c4c4c4;
   /* Both pass WCAG AA (4.5:1) against every surface token above. */
-  --color-muted: #8b98a8;
-  --color-faint: #737f90;
+  --color-muted: #989898;
+  --color-faint: #7f7f7f;
 
-  /* Signal */
-  --color-signal: #4fe3b0;
-  --color-signal-dim: #1f5f4c;
-  --color-signal-glow: #4fe3b033;
+  /* Signal — brand lime green */
+  --color-signal: #a3e635;
+  --color-signal-dim: #3f4d17;
+  --color-signal-glow: #a3e63533;
   --color-warn: #f2b25e;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
@@ -72,7 +72,7 @@
 
 :root {
   color-scheme: dark;
-  --grid-line: color-mix(in oklab, #2a3747 45%, transparent);
+  --grid-line: color-mix(in oklab, #373737 45%, transparent);
 }
 
 * {
@@ -94,7 +94,7 @@ body {
 
 ::selection {
   background: var(--color-signal);
-  color: #04120d;
+  color: #0d1400;
 }
 
 /* Focus visibility — accessibility baseline */

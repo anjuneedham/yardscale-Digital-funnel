@@ -19,7 +19,7 @@ export function NotSure() {
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-50 blur-[100px]"
           style={{
-            background: "radial-gradient(closest-side, rgba(79,227,176,0.18), transparent)",
+            background: "radial-gradient(closest-side, rgba(163,230,53,0.18), transparent)",
           }}
         />
         <div className="relative max-w-2xl">

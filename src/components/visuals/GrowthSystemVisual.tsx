@@ -96,8 +96,8 @@ function SvgDefs({ suffix = "" }: { suffix?: string }) {
   return (
     <defs>
       <linearGradient id={`ys-card${suffix}`} x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#141c27" />
-        <stop offset="100%" stopColor="#0d131b" />
+        <stop offset="0%" stopColor="#1c1c1c" />
+        <stop offset="100%" stopColor="#141414" />
       </linearGradient>
       <filter id={`ys-glow${suffix}`} x="-120%" y="-120%" width="340%" height="340%">
         <feGaussianBlur stdDeviation="5" result="blur" />
@@ -114,11 +114,11 @@ function SvgDefs({ suffix = "" }: { suffix?: string }) {
 function SignalPath({ d, suffix = "" }: { d: string; suffix?: string }) {
   return (
     <g>
-      <path d={d} fill="none" stroke="#1b2532" strokeWidth="1.5" />
+      <path d={d} fill="none" stroke="#252525" strokeWidth="1.5" />
       <path
         d={d}
         fill="none"
-        stroke="#4fe3b0"
+        stroke="#a3e635"
         strokeWidth="1.5"
         strokeOpacity="0.75"
         strokeDasharray="10 250"
@@ -161,14 +161,14 @@ function StageCard({
         height={height}
         rx="10"
         fill={`url(#ys-card${suffix})`}
-        stroke={isTerminal ? "#2f6f5b" : "#22303f"}
+        stroke={isTerminal ? "#54661d" : "#373737"}
         strokeWidth="1"
       />
       <circle
         cx={x + 18}
         cy={y + height / 2}
         r="3"
-        fill="#4fe3b0"
+        fill="#a3e635"
         filter={`url(#ys-glow${suffix})`}
         style={{
           animation: "ys-node 3.2s ease-in-out infinite",
@@ -179,7 +179,7 @@ function StageCard({
       <text
         x={x + 34}
         y={y + height / 2 - 6}
-        fill="#eef3f9"
+        fill="#f4f4f4"
         fontSize="17"
         fontWeight="600"
         letterSpacing="-0.2"
@@ -190,7 +190,7 @@ function StageCard({
       <text
         x={x + 34}
         y={y + height / 2 + 15}
-        fill="#8b98a8"
+        fill="#989898"
         fontSize="12"
         fontFamily="var(--font-geist-mono), ui-monospace, monospace"
       >
@@ -199,7 +199,7 @@ function StageCard({
       <text
         x={x + width - 16}
         y={y + 22}
-        fill="#6b7889"
+        fill="#787878"
         fontSize="10"
         textAnchor="end"
         letterSpacing="1.4"
@@ -220,7 +220,7 @@ function StageCard({
 /** Measurement ticks — the technical detail that makes the board feel instrumented. */
 function Ticks() {
   return (
-    <g stroke="#1b2532" strokeWidth="1" aria-hidden>
+    <g stroke="#252525" strokeWidth="1" aria-hidden>
       <line x1="30" y1="30" x2="30" y2="52" />
       <line x1="30" y1="30" x2="52" y2="30" />
       <line x1="970" y1="490" x2="970" y2="468" />
@@ -228,7 +228,7 @@ function Ticks() {
       <text
         x="30"
         y="472"
-        fill="#6b7889"
+        fill="#787878"
         fontSize="10"
         letterSpacing="1.6"
         fontFamily="var(--font-geist-mono), ui-monospace, monospace"

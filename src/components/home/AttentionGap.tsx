@@ -99,7 +99,7 @@ function Node({ label, state }: { label: string; state: "present" | "missing" })
 function Rail() {
   return (
     <span aria-hidden className="flex h-10 w-px items-center justify-center">
-      <span className="h-full w-px bg-[repeating-linear-gradient(to_bottom,#2a3747_0_4px,transparent_4px_8px)]" />
+      <span className="h-full w-px bg-[repeating-linear-gradient(to_bottom,#373737_0_4px,transparent_4px_8px)]" />
     </span>
   );
 }

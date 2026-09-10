@@ -18,9 +18,9 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#05070a",
+          background: "#070707",
           backgroundImage:
-            "linear-gradient(to right, rgba(42,55,71,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(42,55,71,0.35) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(55,55,55,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(55,55,55,0.35) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
           padding: "72px",
           fontFamily: "sans-serif",
@@ -32,13 +32,13 @@ export default function OpengraphImage() {
               width: 14,
               height: 14,
               borderRadius: 999,
-              background: "#4fe3b0",
+              background: "#a3e635",
               display: "flex",
             }}
           />
           <div
             style={{
-              color: "#8b98a8",
+              color: "#989898",
               fontSize: 22,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
@@ -52,7 +52,7 @@ export default function OpengraphImage() {
         <div
           style={{
             display: "flex",
-            color: "#eef3f9",
+            color: "#f4f4f4",
             fontSize: 82,
             fontWeight: 600,
             lineHeight: 1.05,
@@ -71,23 +71,23 @@ export default function OpengraphImage() {
                   style={{
                     display: "flex",
                     padding: "10px 16px",
-                    border: "1px solid #22303f",
+                    border: "1px solid #373737",
                     borderRadius: 8,
-                    background: "#0c1118",
-                    color: i === stages.length - 1 ? "#4fe3b0" : "#b8c4d2",
+                    background: "#111111",
+                    color: i === stages.length - 1 ? "#a3e635" : "#c4c4c4",
                     fontSize: 20,
                   }}
                 >
                   {stage}
                 </div>
                 {i < stages.length - 1 ? (
-                  <div style={{ display: "flex", width: 18, height: 1, background: "#2a3747" }} />
+                  <div style={{ display: "flex", width: 18, height: 1, background: "#373737" }} />
                 ) : null}
               </div>
             ))}
           </div>
 
-          <div style={{ display: "flex", color: "#8b98a8", fontSize: 26 }}>
+          <div style={{ display: "flex", color: "#989898", fontSize: 26 }}>
             {site.name.toLowerCase().replace(" ", "")}.com
           </div>
         </div>

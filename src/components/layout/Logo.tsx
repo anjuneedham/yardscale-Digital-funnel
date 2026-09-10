@@ -10,11 +10,11 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       aria-label={`${site.name} — home`}
     >
       <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" aria-hidden>
-        <rect x="1" y="1" width="22" height="22" rx="6" fill="#0c1118" stroke="#22303f" />
+        <rect x="1" y="1" width="22" height="22" rx="6" fill="#111111" stroke="#373737" />
         <path
           d="M6 15.5 L10 15.5 L12 8.5 L14 12.5 L18 12.5"
           fill="none"
-          stroke="#4fe3b0"
+          stroke="#a3e635"
           strokeWidth="1.6"
           strokeLinecap="round"
           strokeLinejoin="round"
