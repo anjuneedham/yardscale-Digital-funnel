@@ -12,6 +12,12 @@ type SectionProps = {
   as?: ElementType;
   /** Tighter vertical rhythm for supporting sections. */
   size?: "default" | "compact" | "loose";
+  /**
+   * Alternating surface. Consecutive sections should alternate between the
+   * page ground and `raised` so the funnel reads as distinct steps rather
+   * than one continuous field.
+   */
+  tone?: "default" | "raised";
 };
 
 const PADDING = {
@@ -28,6 +34,7 @@ export function Section({
   divider = false,
   as: Tag = "section",
   size = "default",
+  tone = "default",
 }: SectionProps) {
   return (
     <Tag
@@ -35,6 +42,7 @@ export function Section({
       className={cn(
         "relative isolate",
         PADDING[size],
+        tone === "raised" && "bg-surface",
         divider && "border-t border-line",
         className,
       )}
@@ -70,7 +78,17 @@ export function SectionHeader({
         className,
       )}
     >
-      {eyebrow ? <p className="label-mono mb-4">{eyebrow}</p> : null}
+      {eyebrow ? (
+        <p
+          className={cn(
+            "label-mono mb-4 flex items-center gap-3",
+            align === "center" && "justify-center",
+          )}
+        >
+          <span aria-hidden className="signal-rule" />
+          {eyebrow}
+        </p>
+      ) : null}
       <h2 className="text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
         {title}
       </h2>

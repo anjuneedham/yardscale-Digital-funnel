@@ -90,7 +90,7 @@ export default function BookPage() {
               ))}
             </ol>
 
-            <div className="mt-10 rounded-card border border-line bg-panel/60 p-6">
+            <div className="mt-10 card p-6">
               <p className="label-mono mb-4">Where a call sits in the process</p>
               <FlowDiagram
                 stages={["Growth call", "Diagnosis", "Architecture", "Build"]}
@@ -103,7 +103,7 @@ export default function BookPage() {
           <div>
             {bookingUrl ? (
               <>
-                <div className="overflow-hidden rounded-card border border-line bg-panel/60">
+                <div className="overflow-hidden card">
                   <iframe
                     src={bookingUrl}
                     title="Book a growth call"
@@ -133,7 +133,7 @@ export default function BookPage() {
               </>
             ) : (
               <>
-                <div className="rounded-card border border-line bg-panel/60 p-6 sm:p-8">
+                <div className="card p-6 sm:p-8">
                   <h2 className="text-xl font-semibold tracking-[-0.02em]">
                     Request a call
                   </h2>

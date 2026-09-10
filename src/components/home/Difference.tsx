@@ -52,7 +52,7 @@ export function Difference() {
         </Reveal>
 
         <Reveal delay={120}>
-          <div className="rounded-card border border-line bg-panel/60 p-6 sm:p-8">
+          <div className="card p-6 sm:p-8">
             <p className="label-mono mb-8">How the work is sequenced</p>
             <ol className="relative">
               <span

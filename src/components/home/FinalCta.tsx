@@ -15,7 +15,7 @@ export function FinalCta() {
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[30rem] w-[46rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-[130px]"
         style={{
-          background: "radial-gradient(closest-side, rgba(163,230,53,0.14), transparent)",
+          background: "radial-gradient(closest-side, rgba(189,250,9,0.16), transparent)",
         }}
       />
 
