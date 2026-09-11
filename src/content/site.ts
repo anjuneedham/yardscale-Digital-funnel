@@ -49,6 +49,7 @@ export const nav: { label: string; href: string }[] = [
   { label: "What We Build", href: "/what-we-build" },
   { label: "How It Works", href: "/how-it-works" },
   { label: "Work", href: "/work" },
+  { label: "Growth System", href: "/growth-system" },
   { label: "Resources", href: "/resources" },
   { label: "About", href: "/about" },
 ];
@@ -77,6 +78,7 @@ export const footerNav: { title: string; links: { label: string; href: string }[
     title: "Start here",
     links: [
       { label: "Find your bottleneck", href: "/#bottleneck" },
+      { label: "The Growth Operator System", href: "/growth-system" },
       { label: "Free starter guide", href: "/resources#starter-guide" },
       { label: "Book a growth call", href: "/book" },
     ],

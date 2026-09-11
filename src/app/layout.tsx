@@ -6,8 +6,7 @@ import "./globals.css";
 import { site } from "@/content/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/layout/JsonLd";
-import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteChromeHeader, SiteChromeFooter } from "@/components/layout/SiteChrome";
 import { FunnelProvider } from "@/components/funnel/FunnelProvider";
 
 const geistSans = Geist({
@@ -70,11 +69,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <FunnelProvider>
-          <SiteHeader />
+          <SiteChromeHeader />
           <main id="main" className="flex-1">
             {children}
           </main>
-          <SiteFooter />
+          <SiteChromeFooter />
         </FunnelProvider>
         <Analytics />
       </body>
