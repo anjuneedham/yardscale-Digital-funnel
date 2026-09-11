@@ -258,7 +258,7 @@ function QuestionScreen({
                       )}
                     >
                       {isSelected ? (
-                        <svg viewBox="0 0 12 12" className="h-2.5 w-2.5 text-[#0d1400]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg viewBox="0 0 12 12" className="h-2.5 w-2.5 text-[color:var(--color-on-signal)]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M2.5 6.2l2.4 2.4L9.5 3.8" />
                         </svg>
                       ) : null}
@@ -351,12 +351,12 @@ function ResultScreen({
         {recommendation.rationale}
       </p>
 
-      <div className="mt-7 rounded-card border border-line bg-panel/70 p-5">
+      <div className="mt-7 card p-5">
         <p className="label-mono mb-4">The sequence that has to work</p>
         <FlowDiagram stages={recommendation.flow} compact />
       </div>
 
-      <div className="mt-4 rounded-card border border-line bg-panel/70 p-5">
+      <div className="mt-4 card p-5">
         <p className="label-mono mb-3">Where we&apos;d likely start</p>
         <ul className="space-y-2">
           {recommendation.firstBuilds.map((build, i) => (

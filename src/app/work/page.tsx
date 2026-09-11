@@ -82,7 +82,7 @@ export default function WorkPage() {
               copy: "What measurably changed. If a number can't be substantiated, it doesn't appear.",
             },
           ].map((item) => (
-            <div key={item.term} className="rounded-card border border-line bg-panel/50 p-5">
+            <div key={item.term} className="card p-5">
               <h3 className="label-mono">{item.term}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted">{item.copy}</p>
             </div>

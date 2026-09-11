@@ -44,7 +44,7 @@ export default function ContactPage() {
           </div>
 
           <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <div className="rounded-card border border-line bg-panel/60 p-6">
+            <div className="card p-6">
               <h2 className="label-mono">Prefer to talk?</h2>
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
                 A growth call is a working conversation, not a pitch. We look at what
@@ -62,7 +62,7 @@ export default function ContactPage() {
               </CtaLink>
             </div>
 
-            <div className="rounded-card border border-line bg-panel/60 p-6">
+            <div className="card p-6">
               <h2 className="label-mono">Not sure what to write?</h2>
               <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
                 Run the diagnostic first. It takes a moment and gives you the vocabulary
@@ -73,7 +73,7 @@ export default function ContactPage() {
               </CtaLink>
             </div>
 
-            <div className="rounded-card border border-line bg-panel/60 p-6">
+            <div className="card p-6">
               <h2 className="label-mono">Direct</h2>
               <a
                 href={`mailto:${site.email}`}

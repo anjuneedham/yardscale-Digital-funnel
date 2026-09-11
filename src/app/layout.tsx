@@ -65,7 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-signal focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-[#0d1400]"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-signal focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-[color:var(--color-on-signal)]"
         >
           Skip to content
         </a>

@@ -7,7 +7,7 @@ import { Reveal } from "@/components/ui/Reveal";
  */
 export function AttentionGap() {
   return (
-    <Section divider grid id="the-gap">
+    <Section divider grid tone="raised" id="the-gap">
       <div className="grid gap-14 lg:grid-cols-[1fr_1fr] lg:gap-20">
         <Reveal>
           <h2 className="text-balance text-3xl font-semibold leading-[1.08] tracking-[-0.025em] sm:text-4xl lg:text-5xl">
@@ -64,7 +64,7 @@ export function AttentionGap() {
 /** ATTENTION → ? → CUSTOMER. The missing middle, drawn literally. */
 function GapDiagram() {
   return (
-    <div className="rounded-card border border-line bg-panel/60 p-6 sm:p-8">
+    <div className="card p-6 sm:p-8">
       <p className="label-mono mb-7">The missing middle</p>
       <div className="flex flex-col items-center gap-0">
         <Node label="Attention" state="present" />

@@ -14,12 +14,12 @@ export function NotSure() {
 
   return (
     <Section divider size="compact">
-      <div className="relative overflow-hidden rounded-card border border-line bg-panel/70 p-8 sm:p-12 lg:p-16">
+      <div className="relative overflow-hidden card p-8 sm:p-12 lg:p-16">
         <div
           aria-hidden
           className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-50 blur-[100px]"
           style={{
-            background: "radial-gradient(closest-side, rgba(163,230,53,0.18), transparent)",
+            background: "radial-gradient(closest-side, rgba(189,250,9,0.2), transparent)",
           }}
         />
         <div className="relative max-w-2xl">

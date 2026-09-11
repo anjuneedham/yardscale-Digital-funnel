@@ -20,7 +20,7 @@ export function GrowthPathsSection() {
   const active = growthPathList.find((p) => p.id === activeId) ?? growthPathList[0];
 
   return (
-    <Section id="growth-paths" divider>
+    <Section id="growth-paths" divider tone="raised">
       <SectionHeader
         eyebrow="Growth paths"
         title="The systems a bottleneck usually resolves into."
@@ -63,7 +63,7 @@ export function GrowthPathsSection() {
         id={`panel-${active.id}`}
         aria-labelledby={`tab-${active.id}`}
         key={active.id}
-        className="mt-6 animate-fade-up rounded-card border border-line bg-panel/70 p-6 sm:p-8 lg:p-10"
+        className="mt-6 animate-fade-up card p-6 sm:p-8 lg:p-10"
       >
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
           <div>

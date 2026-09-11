@@ -139,6 +139,50 @@ the native `<dialog>` element for focus trapping and Escape handling. All colour
 tokens meet 4.5:1 against every surface. Scroll animations are suppressed under
 `prefers-reduced-motion`, and content renders fully without JavaScript.
 
+## Deployment
+
+Hosted on Vercel, linked to this GitHub repository. Every push to the
+production branch ships a production deployment; every other branch and pull
+request gets its own preview URL.
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | Next.js (auto-detected) |
+| Build command | `next build` (default) |
+| Install command | `npm install` (default) |
+| Output | `.next` (default) |
+| Node version | 24.x |
+
+No `vercel.json` is needed. Response headers are set in `next.config.ts`, so
+they apply identically in local development and in production.
+
+### Environment variables
+
+Every variable in `.env.example` is optional — the site builds and runs without
+any of them — so add them in **Project Settings > Environment Variables** as the
+corresponding integration becomes real:
+
+- `NEXT_PUBLIC_SITE_URL` — canonical URLs, Open Graph tags, `sitemap.xml` and
+  `robots.txt` are all derived from it. Unset, it falls back to the hard-coded
+  `https://yardscaledigital.com` in `src/content/site.ts`, which is correct once
+  that domain points here and wrong before then — so on a `.vercel.app`-only
+  deployment, set it to the deployment origin.
+- `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_BOOKING_URL` — public values, read
+  at build time. Redeploy after changing either.
+- `FORM_WEBHOOK_URL`, `LEAD_WEBHOOK_URL`, `QUALIFICATION_WEBHOOK_URL`,
+  `GROWTH_REQUEST_WEBHOOK_URL`, `FORM_WEBHOOK_TOKEN` — server-only, read at
+  request time by the API routes. Until they are set, submissions still succeed
+  and are written to the deployment's runtime logs rather than being forwarded.
+
+The three API routes run as serverless functions; the remaining routes are
+prerendered as static content at build time.
+
+### Before pushing
+
+`npm run lint && npm run typecheck && npm run build` locally — a failed Vercel
+build leaves the previous deployment serving, so a broken push is silent until
+someone checks the dashboard.
+
 ## Project structure
 
 ```

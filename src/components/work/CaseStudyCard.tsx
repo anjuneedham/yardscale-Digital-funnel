@@ -3,7 +3,7 @@ import type { CaseStudy } from "@/content/work";
 /** A published case study. Renders only fields that are actually filled in. */
 export function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
-    <article className="flex h-full flex-col rounded-card border border-line bg-panel/70 p-6 sm:p-7">
+    <article className="flex h-full flex-col card p-6 sm:p-7">
       <div className="flex items-center justify-between gap-4">
         <p className="label-mono">{study.discipline}</p>
         {study.year ? <span className="font-mono text-xs text-faint">{study.year}</span> : null}

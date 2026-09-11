@@ -77,7 +77,7 @@ export function Panel({
   return (
     <div
       className={cn(
-        "rounded-card border border-line bg-panel/80 p-6 sm:p-7",
+        "card p-6 sm:p-7",
         interactive && "transition-colors duration-200 hover:border-line-strong hover:bg-raised/70",
         className,
       )}

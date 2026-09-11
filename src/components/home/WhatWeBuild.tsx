@@ -10,7 +10,7 @@ import { CtaLink, ArrowGlyph } from "@/components/ui/Cta";
  */
 export function WhatWeBuild() {
   return (
-    <Section id="what-we-build" divider>
+    <Section id="what-we-build" divider tone="raised">
       <SectionHeader
         eyebrow="Capabilities, not packages"
         title="What can we build?"
@@ -23,7 +23,7 @@ export function WhatWeBuild() {
             <Reveal delay={Math.min(i * 45, 270)} className="h-full">
               <Link
                 href={`/what-we-build#${capability.id}`}
-                className="group flex h-full flex-col bg-surface p-6 transition-colors duration-200 hover:bg-panel sm:p-7"
+                className="group relative flex h-full flex-col bg-surface p-6 transition-colors duration-200 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-signal before:opacity-0 before:transition-opacity hover:bg-panel hover:before:opacity-100 sm:p-7"
               >
                 <span className="font-mono text-[0.6875rem] tracking-[0.16em] text-faint">
                   {String(i + 1).padStart(2, "0")}
@@ -44,7 +44,7 @@ export function WhatWeBuild() {
         ))}
       </ul>
 
-      <div className="mt-10 flex flex-col items-start gap-6 rounded-card border border-line bg-panel/60 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+      <div className="mt-10 flex flex-col items-start gap-6 card p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
         <p className="text-balance text-lg font-medium leading-snug sm:text-xl">
           None of this is sold as a package. It&apos;s assembled into{" "}
           <span className="text-signal">the system your business needs.</span>

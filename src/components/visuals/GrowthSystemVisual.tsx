@@ -38,7 +38,7 @@ const MOBILE_PATH = "M 190 58 V 638";
 export function GrowthSystemVisual({ className }: { className?: string }) {
   return (
     <figure className={cn("relative", className)}>
-      <div className="rounded-card border border-line bg-panel/60 p-3 sm:p-5">
+      <div className="card p-3 sm:p-5">
         <Frame />
         <svg
           viewBox="0 0 1000 520"
@@ -118,7 +118,7 @@ function SignalPath({ d, suffix = "" }: { d: string; suffix?: string }) {
       <path
         d={d}
         fill="none"
-        stroke="#a3e635"
+        stroke="#bdfa09"
         strokeWidth="1.5"
         strokeOpacity="0.75"
         strokeDasharray="10 250"
@@ -168,7 +168,7 @@ function StageCard({
         cx={x + 18}
         cy={y + height / 2}
         r="3"
-        fill="#a3e635"
+        fill="#bdfa09"
         filter={`url(#ys-glow${suffix})`}
         style={{
           animation: "ys-node 3.2s ease-in-out infinite",
@@ -179,7 +179,7 @@ function StageCard({
       <text
         x={x + 34}
         y={y + height / 2 - 6}
-        fill="#f4f4f4"
+        fill="#f7f6f2"
         fontSize="17"
         fontWeight="600"
         letterSpacing="-0.2"

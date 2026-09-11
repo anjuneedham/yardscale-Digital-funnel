@@ -122,7 +122,7 @@ export default function WhatWeBuildPage() {
         />
         <div className="mt-10 grid gap-4 md:grid-cols-2">
           {growthPathList.map((path) => (
-            <div key={path.id} className="rounded-card border border-line bg-panel/60 p-6">
+            <div key={path.id} className="card p-6">
               <h3 className="text-lg font-semibold tracking-[-0.01em]">{path.name}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{path.premise}</p>
               <div className="mt-5">
