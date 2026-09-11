@@ -1,4 +1,5 @@
 import { forwardSubmission } from "@/lib/forwarder";
+import { sendStarterGuideEmail } from "@/lib/email";
 import { badRequest, isBot, json, rateLimited, readBody } from "@/lib/api";
 import { clamp, isEmail, isFilled } from "@/lib/validation";
 
@@ -23,18 +24,27 @@ export async function POST(request: Request) {
   if (!isFilled(name, 120)) return badRequest("Please add your first name.");
   if (!isEmail(email)) return badRequest("Please enter a valid email address.");
 
-  const { delivered } = await forwardSubmission("lead", {
-    name,
-    email,
-    resourceId: clamp(body.resourceId, 80),
-    resourceTitle: clamp(body.resourceTitle, 200),
-    origin: clamp(body.origin, 80),
-    context: body.context,
-  });
+  const resourceId = clamp(body.resourceId, 80);
+
+  const [{ delivered: emailed }] = await Promise.all([
+    resourceId === "starter-guide"
+      ? sendStarterGuideEmail(name, email)
+      : Promise.resolve({ delivered: false }),
+    forwardSubmission("lead", {
+      name,
+      email,
+      resourceId,
+      resourceTitle: clamp(body.resourceTitle, 200),
+      origin: clamp(body.origin, 80),
+      context: body.context,
+    }),
+  ]);
 
   return json({
     ok: true,
-    delivered,
-    message: "Thanks — the guide is on its way.",
+    delivered: emailed,
+    message: emailed
+      ? "Thanks — check your inbox for the guide."
+      : "Thanks — the guide is on its way.",
   });
 }
