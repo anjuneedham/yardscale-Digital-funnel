@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { isEmail, isFilled, clamp } from "@/lib/validation";
+import { isEmail, clamp } from "@/lib/validation";
 import {
   COURSE_ID,
   SESSION_COOKIE,
   SESSION_MAX_AGE_SECONDS,
-  devAccessCode,
   sessionSecret,
 } from "@/lib/growth-system/config";
 import { signToken, type GrowthSystemSession } from "@/lib/growth-system/session";
@@ -16,11 +15,10 @@ export const dynamic = "force-dynamic";
 /**
  * Session route for the Growth Operator System.
  *
- * POST with intent=login validates an access code and issues a signed session
- * cookie. POST with intent=logout clears it. The access-code check is the
- * placeholder entitlement gate — replace it with a real paid-enrollment lookup
- * (e.g. verify the email against a Stripe customer with an active purchase) to
- * put the course behind real payment. The cookie/session shape stays the same.
+ * POST with intent=login captures name + email (no access gate) and issues a
+ * signed session cookie. POST with intent=logout clears it. Contact info is
+ * optionally posted to LEAD_WEBHOOK_URL or the fallback FORM_WEBHOOK_URL for
+ * lead capture / CRM sync.
  */
 
 function redirectTo(request: Request, path: string) {
@@ -37,9 +35,8 @@ export async function POST(request: Request) {
     return res;
   }
 
+  const name = clamp(form?.get("name"), 120);
   const email = clamp(form?.get("email"), 254);
-  const name = clamp(form?.get("name"), 120) || email.split("@")[0] || "Member";
-  const accessCode = clamp(form?.get("accessCode"), 80);
   const next = clamp(form?.get("next"), 200);
 
   const safeNext = next.startsWith("/growth-system") ? next : "/growth-system/dashboard";
@@ -47,8 +44,25 @@ export async function POST(request: Request) {
   if (!isEmail(email)) {
     return redirectTo(request, `/growth-system/login?error=email&next=${encodeURIComponent(safeNext)}`);
   }
-  if (!isFilled(accessCode, 80) || accessCode !== devAccessCode()) {
-    return redirectTo(request, `/growth-system/login?error=code&next=${encodeURIComponent(safeNext)}`);
+  if (!name) {
+    return redirectTo(request, `/growth-system/login?error=name&next=${encodeURIComponent(safeNext)}`);
+  }
+
+  // Capture contact as a lead (optional webhook).
+  const leadUrl = process.env.LEAD_WEBHOOK_URL || process.env.FORM_WEBHOOK_URL;
+  if (leadUrl) {
+    fetch(leadUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        type: "growth_system_enrollment",
+        email,
+        name,
+        timestamp: new Date().toISOString(),
+      }),
+    }).catch(() => {
+      // Fail silently; webhook failure does not block enrollment.
+    });
   }
 
   const now = Math.floor(Date.now() / 1000);
