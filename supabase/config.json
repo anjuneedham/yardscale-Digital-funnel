@@ -1,0 +1,32 @@
+{
+  "project_id": "YOUR_PROJECT_ID",
+  "database": {
+    "tables": [
+      {
+        "name": "growth_calls",
+        "description": "Stores Growth Call request submissions from the /book page",
+        "fields": {
+          "id": "UUID primary key (auto-generated)",
+          "created_at": "Timestamp when the request was submitted",
+          "name": "Requester's full name (required)",
+          "email": "Requester's email address (required)",
+          "phone": "Requester's phone number (optional)",
+          "business": "Business name (optional)",
+          "website": "Business website (optional)",
+          "growth_problem": "Description of the growth challenge (required)",
+          "preferred_date": "Preferred call date (optional)",
+          "preferred_time": "Preferred call time (optional)",
+          "status": "Request status: 'new', 'contacted', 'scheduled', etc. (default: 'new')",
+          "updated_at": "Timestamp of last update"
+        }
+      }
+    ],
+    "row_level_security": {
+      "growth_calls": {
+        "public_insert": "Anyone can submit a new request",
+        "public_select": "DISABLED - Prevents public access to other submissions",
+        "admin": "Service role can read/update/delete all submissions"
+      }
+    }
+  }
+}
