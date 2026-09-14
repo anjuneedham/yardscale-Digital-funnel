@@ -2,6 +2,7 @@ import { forwardSubmission } from "@/lib/forwarder";
 import { badRequest, isBot, json, rateLimited, readBody } from "@/lib/api";
 import { clamp, isEmail, isFilled } from "@/lib/validation";
 import { getSupabaseClient, type GrowthCallRecord } from "@/lib/supabase";
+import { sendGrowthCallNotificationEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -57,6 +58,9 @@ export async function POST(request: Request) {
   if (dbError) {
     return json({ ok: false, message: dbError }, 500);
   }
+
+  // Send internal notification email (if configured)
+  await sendGrowthCallNotificationEmail(name, email, business, website, growthProblem);
 
   // Forward to webhooks (for CRM/Zapier/etc., keeping backwards compatibility)
   const { delivered } = await forwardSubmission("growth-request", {
