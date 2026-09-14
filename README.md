@@ -93,14 +93,27 @@ Set `NEXT_PUBLIC_BOOKING_URL` to any embeddable scheduler. Every "Book a growth
 call" CTA then points at it, and `/book` embeds it. Unset, `/book` falls back to
 the on-site growth request form.
 
+### Growth Call Submissions
+
+The `/book` page collects detailed growth call requests and stores them in three
+systems:
+
+1. **Supabase** (database) — permanent record of all submissions
+2. **Resend** (email) — internal team notifications when new calls arrive
+3. **Webhooks** (CRM/Zapier/etc) — third-party integrations
+
+Set up `docs/SUPABASE_SETUP.md` and `docs/RESEND_SETUP.md` to enable database
+storage and email notifications.
+
 ### CRM / email delivery
 
-The three form endpoints (`/api/lead`, `/api/qualification`,
-`/api/growth-request`) validate input server-side, then forward a JSON payload
-to the webhook configured for that submission type — or to `FORM_WEBHOOK_URL` as
-a fallback. Point it at Zapier, Make, HubSpot, ConvertKit, Airtable, Slack or a
-custom endpoint. With nothing configured, submissions still succeed and are
-written to the server log, so the site works before the integration exists.
+The form endpoints (`/api/lead`, `/api/qualification`, `/api/growth-request`)
+validate input server-side, store to Supabase (if configured), send email
+notifications (if configured), then forward a JSON payload to the webhook
+configured for that submission type — or to `FORM_WEBHOOK_URL` as a fallback.
+Point it at Zapier, Make, HubSpot, ConvertKit, Airtable, Slack or a custom
+endpoint. With nothing configured, submissions still succeed, are stored in
+Supabase if enabled, and are written to the server log.
 
 Each payload includes the visitor's attribution (see below), so a lead can be
 traced back to the platform that produced it.
@@ -169,10 +182,14 @@ corresponding integration becomes real:
   deployment, set it to the deployment origin.
 - `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_BOOKING_URL` — public values, read
   at build time. Redeploy after changing either.
+- `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` — database storage for
+  growth call submissions. See `docs/SUPABASE_SETUP.md`.
+- `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `GROWTH_CALL_NOTIFICATION_EMAIL` —
+  email notifications when new growth calls arrive. See `docs/RESEND_SETUP.md`.
 - `FORM_WEBHOOK_URL`, `LEAD_WEBHOOK_URL`, `QUALIFICATION_WEBHOOK_URL`,
-  `GROWTH_REQUEST_WEBHOOK_URL`, `FORM_WEBHOOK_TOKEN` — server-only, read at
-  request time by the API routes. Until they are set, submissions still succeed
-  and are written to the deployment's runtime logs rather than being forwarded.
+  `GROWTH_REQUEST_WEBHOOK_URL`, `FORM_WEBHOOK_TOKEN` — webhook forwarding to
+  CRM/Zapier/etc. Until they are set, submissions still succeed, are stored in
+  Supabase (if configured), and are written to the deployment's runtime logs.
 
 The three API routes run as serverless functions; the remaining routes are
 prerendered as static content at build time.
