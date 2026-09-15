@@ -174,12 +174,16 @@ those can be supported without rebuilding the course.
 
 ## 9. How to add a new phase
 
+All nine phases are authored. To add a tenth, or to stage an unfinished one:
+
 1. Create `src/content/growth-system/phases/phase-N.ts` exporting a full `Phase`
    (copy `phase-1.ts` as the template). Set `status: "available"`.
-2. In `phases/index.ts`, import it and replace the `upcoming(...)` stub for that
-   phase number.
+2. In `phases/index.ts`, import it and add it to the `phases` array in order.
 3. Done. Its routes (`/growth-system/phase-N` and each lesson) and its dashboard
    state work automatically. Run `npm run build` to verify.
+
+A phase with `status: "upcoming"` and an empty `lessons` array renders as a
+locked state instead — useful for announcing a phase before its content exists.
 
 ---
 

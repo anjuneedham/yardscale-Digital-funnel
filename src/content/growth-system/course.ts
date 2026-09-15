@@ -66,10 +66,14 @@ export const outcomes = [
 
 export const whatYouBuild = [
   { phase: "Phase 1", asset: "Business Growth Diagnostic", detail: "A scored, one-page read on your biggest constraint." },
-  { phase: "Phase 2", asset: "Positioning & Offer", detail: "An offer a stranger can evaluate in one read." },
-  { phase: "Phase 3", asset: "Conversion System", detail: "The pages, path and follow-up that carry attention to a decision." },
-  { phase: "Phase 4", asset: "Distribution Engine", detail: "A repeatable way to feed the system the right attention." },
-  { phase: "Phases 5–9", asset: "The full operating system", detail: "Conversion, proof, acquisition, operating cadence and scale." },
+  { phase: "Phase 2", asset: "Positioning & Offer Statement", detail: "An offer a stranger can evaluate in one read." },
+  { phase: "Phase 3", asset: "Conversion System Build Plan", detail: "The pages, path and follow-up that carry attention to a decision." },
+  { phase: "Phase 4", asset: "Distribution Plan", detail: "A primary channel, a matched entry point and a budget ceiling." },
+  { phase: "Phase 5", asset: "Conversion Improvement Log", detail: "A repeatable loop for finding and fixing what leaks." },
+  { phase: "Phase 6", asset: "Proof System", detail: "Substantiated evidence, placed where the doubt actually happens." },
+  { phase: "Phase 7", asset: "Acquisition Model", detail: "What a customer costs, what one is worth, and what you can afford." },
+  { phase: "Phase 8", asset: "Growth Operating Dashboard", detail: "The numbers you review weekly and the rhythm that runs them." },
+  { phase: "Phase 9", asset: "Scaling Plan", detail: "What breaks first at the next volume, and the capacity to hold it." },
 ];
 
 export const faqs = [
@@ -86,7 +90,7 @@ export const faqs = [
   {
     question: "How is it structured?",
     answer:
-      "Nine phases, following the operator framework: Diagnose, Position, Build, Distribute, Convert, Prove, Acquire, Operate, Scale. Each phase has lessons, a framework, exercises, an implementation task and a concrete asset you build. Phase 1 is available now; further phases are released into the same member dashboard.",
+      "Nine phases, following the operator framework: Diagnose, Position, Build, Distribute, Convert, Prove, Acquire, Operate, Scale. Each phase has lessons, a framework, exercises, an implementation task and a concrete asset you build. All nine phases are available in the member dashboard, and the ninth sends you back to the first — the constraint moves as the business grows.",
   },
   {
     question: "Do I need to be technical?",

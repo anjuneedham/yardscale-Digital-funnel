@@ -141,8 +141,8 @@ export default function GrowthSystemSalesPage() {
           <div className="lg:sticky lg:top-24 lg:self-start">
             <p className="text-pretty text-base leading-relaxed text-ink-soft">
               The framework runs in sequence because the stages depend on each other. You cannot
-              convert attention you have not earned, or scale a system you have not proven. Phase 1
-              is available now; the rest unlock inside your member dashboard as you progress.
+              convert attention you have not earned, or scale a system you have not proven. All nine
+              phases are available in your member dashboard, and each one produces an asset you keep.
             </p>
             <div className="mt-8">
               <CtaLink href="/growth-system/login?next=%2Fgrowth-system%2Fdashboard" size="lg" className="group">
