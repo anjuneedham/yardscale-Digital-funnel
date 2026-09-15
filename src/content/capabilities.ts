@@ -1,6 +1,9 @@
 /**
- * What YardScale can build. These are capabilities, not packages.
- * Add or edit entries here — the homepage grid and /what-we-build page both read this file.
+ * What YardScale builds and runs. Four practice areas, not a menu of nine
+ * unrelated deliverables: funnels get built, paid traffic points at them,
+ * and digital products / courses are shipped both for YardScale itself and
+ * for clients. Add or edit entries here — the homepage grid and
+ * /what-we-build page both read this file.
  */
 
 export type Capability = {
@@ -17,167 +20,75 @@ export type Capability = {
 
 export const capabilities: Capability[] = [
   {
-    id: "websites",
-    name: "Websites",
-    summary: "Websites designed to guide visitors toward action.",
+    id: "funnels",
+    name: "Funnels & Websites",
+    summary: "Owned funnels and websites architected to convert, not just published.",
     whatItIs:
-      "A website built as a conversion path rather than a set of pages. Structure, copy hierarchy, and calls to action are designed around the decision a visitor has to make.",
+      "A website, funnel, or landing page built as a sequence toward one decision. Structure, copy hierarchy, and calls to action follow the decision a visitor has to make — not a template.",
     whoNeedsIt:
-      "Businesses whose site is the main destination for social traffic, referrals, or search — and whose current site describes the company without moving anyone forward.",
+      "Businesses who need a destination that can actually carry traffic to a result, whether that traffic is paid, organic, or referral.",
     problemItSolves:
-      "Attention lands and dissipates. A site that presents information leaves the visitor to work out their own next step, and most will not.",
+      "Most sites and funnels are unarchitected — a homepage, a contact form, and no defined path from attention to a decision. Paid traffic exposes that immediately: clicks cost money, and an unarchitected destination wastes them.",
     couldInclude: [
-      "Conversion-led information architecture",
+      "Conversion-led site or funnel architecture",
+      "Landing pages built per traffic source",
       "Offer and messaging hierarchy",
-      "Primary and secondary conversion paths",
-      "Lead capture and routing",
+      "Lead capture, qualification and follow-up",
       "Analytics and attribution wiring",
     ],
   },
   {
-    id: "funnels",
-    name: "Funnels",
-    summary: "Lead generation, sales, application, and conversion funnels.",
+    id: "paid-advertising",
+    name: "Paid Advertising & Promotion",
+    summary: "Paid traffic and promotion run toward a funnel built to convert it.",
     whatItIs:
-      "A defined sequence that takes someone from first contact to a qualified conversation or purchase, with a specific job at every step.",
+      "Campaign setup and ongoing management across paid channels, pointed at a funnel designed for that specific traffic — built and run as one system rather than handed off in isolation.",
     whoNeedsIt:
-      "Anyone running traffic — paid, organic, or content — into a destination that was not built for that traffic.",
+      "Businesses with a funnel that is ready for traffic, or that need the ad and the destination designed together from the start.",
     problemItSolves:
-      "Traffic arrives at a general-purpose page, gets no specific next step, and leaves. A funnel replaces that with a sequence you can measure and improve.",
+      "Paid traffic sent to a generic page burns spend without producing a signal you can act on. Running the promotion and the destination as one system is what makes the spend measurable and improvable.",
     couldInclude: [
-      "Entry points built per traffic source",
-      "Lead capture and delivery",
-      "Qualification logic",
-      "Follow-up and nurture structure",
-      "Application or booking flow",
-    ],
-  },
-  {
-    id: "landing-pages",
-    name: "Landing Pages",
-    summary: "Focused pages designed around a specific action.",
-    whatItIs:
-      "A single page with one job: convert a defined audience, arriving from a defined source, into one defined action.",
-    whoNeedsIt:
-      "Creators and businesses sending campaign, ad, or content traffic that deserves a purpose-built destination.",
-    problemItSolves:
-      "Sending targeted traffic to an untargeted page wastes the specificity that made the traffic valuable.",
-    couldInclude: [
-      "Single-action page architecture",
-      "Message match to the traffic source",
-      "Proof and objection handling",
-      "Capture form and confirmation flow",
-      "Variant structure for testing",
-    ],
-  },
-  {
-    id: "high-ticket-offers",
-    name: "High-Ticket Offer Systems",
-    summary:
-      "Infrastructure around high-value services, coaching, consulting, and education.",
-    whatItIs:
-      "The positioning, application flow, and conversion path that make a high-value offer buyable without a manual sales process for every prospect.",
-    whoNeedsIt:
-      "Consultants, agencies, coaches, and expert operators selling outcomes rather than deliverables.",
-    problemItSolves:
-      "Expertise that is real but unpackaged, priced inconsistently, and sold one improvised conversation at a time.",
-    couldInclude: [
-      "Offer architecture and positioning",
-      "Application and qualification funnel",
-      "Sales-call booking infrastructure",
-      "Pre-call education and framing",
-      "Proposal and follow-up structure",
-    ],
-  },
-  {
-    id: "courses-education",
-    name: "Courses & Education",
-    summary: "Digital education experiences and supporting infrastructure.",
-    whatItIs:
-      "A structured learning product plus everything around it — the platform that hosts it, the page that sells it, and the path that leads people to it.",
-    whoNeedsIt:
-      "Educators, operators and creators whose knowledge is repeatable and currently delivered live, one person at a time.",
-    problemItSolves:
-      "Teaching does not scale until it is structured, hosted, and sold through a repeatable path.",
-    couldInclude: [
-      "Education platform or course hosting",
-      "Curriculum and progression structure",
-      "Sales page and checkout",
-      "Free-value to paid-product path",
-      "Community or cohort infrastructure",
-    ],
-  },
-  {
-    id: "creator-monetization",
-    name: "Creator Monetization",
-    summary:
-      "Systems that help creators turn attention and expertise into revenue opportunities.",
-    whatItIs:
-      "An owned destination and offer structure that sits underneath content, so audience growth compounds into something you control.",
-    whoNeedsIt:
-      "Creators with real distribution and no owned asset — no email list, no destination, nothing to buy.",
-    problemItSolves:
-      "Attention on a rented platform disappears. Without capture and an offer, growth does not accumulate.",
-    couldInclude: [
-      "Creator website and destination",
-      "Lead magnet and capture funnel",
-      "Email infrastructure",
-      "High-ticket or product offer system",
-      "Content-to-conversion routing",
+      "Campaign structure and audience targeting",
+      "Creative and offer alignment with the destination",
+      "Budget pacing and channel selection",
+      "Conversion tracking and attribution",
+      "Ongoing optimization against results",
     ],
   },
   {
     id: "digital-products",
-    name: "Digital Products",
-    summary: "Custom digital experiences built around a specific business problem.",
+    name: "Digital Products & Apps",
+    summary: "Software and apps built for our own products, and for clients' businesses.",
     whatItIs:
-      "Software or a structured digital experience that delivers the outcome directly, rather than describing it.",
+      "A web or mobile product that delivers the outcome directly, rather than describing it. We build these for our own products as well as for clients — the same practice, the same standard.",
     whoNeedsIt:
-      "Businesses where the value is in a process, a tool, or an experience — not in a service delivered by hand.",
+      "Businesses and creators whose value is in a tool, process, or experience — not a service delivered by hand.",
     problemItSolves:
-      "A manual process that works but cannot scale, or a value proposition that only becomes real once someone uses something.",
+      "A manual process that works but cannot scale, or an idea that only becomes real once someone can use it.",
     couldInclude: [
       "Product definition and scoping",
-      "Web application build",
+      "Web application or mobile app build",
       "Customer portal or dashboard",
       "Payment and access infrastructure",
       "Onboarding and retention flow",
     ],
   },
   {
-    id: "mobile-apps",
-    name: "Mobile Apps",
-    summary: "Mobile applications when an app is the right solution.",
+    id: "courses-education",
+    name: "Courses & Education",
+    summary: "Course and education infrastructure, built for our own curriculum and for clients'.",
     whatItIs:
-      "A native or cross-platform mobile application, built when mobile context, frequency of use, or device capability genuinely changes the outcome.",
+      "The platform, curriculum structure, sales path, and delivery for a course or education product — the same infrastructure we run our own course on.",
     whoNeedsIt:
-      "Businesses with a validated process, repeat usage, and a clear reason the experience has to live on a phone.",
+      "Educators, operators, and creators whose knowledge is repeatable and currently delivered live, one person at a time — or businesses building education as a product line.",
     problemItSolves:
-      "Some products need to be present in someone's pocket. Most do not — so the first question is whether an app is the right answer at all.",
+      "Teaching does not scale until it is structured, hosted, sold through a repeatable path, and connected to a funnel that brings people to it.",
     couldInclude: [
-      "Product and platform definition",
-      "Cross-platform or native build",
-      "Account and payment infrastructure",
-      "Release and store setup",
-      "Analytics and retention instrumentation",
-    ],
-  },
-  {
-    id: "custom-growth-systems",
-    name: "Custom Growth Systems",
-    summary: "A combination of the above when the business requires something unique.",
-    whatItIs:
-      "A system assembled from whatever the business actually needs — often a website, an offer, a funnel and a product working as one connected path.",
-    whoNeedsIt:
-      "Businesses whose bottleneck does not sit inside a single deliverable.",
-    problemItSolves:
-      "Buying one component at a time produces disconnected parts. The growth system is the connection between them.",
-    couldInclude: [
-      "Growth architecture across the whole journey",
-      "Multiple connected builds",
-      "Data and attribution across the system",
-      "Sequenced delivery by priority",
-      "Ongoing iteration against results",
+      "Education platform or course hosting",
+      "Curriculum and progression structure",
+      "Sales page, checkout and funnel",
+      "Free-value to paid-product path",
+      "Community or cohort infrastructure",
     ],
   },
 ];
