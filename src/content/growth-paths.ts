@@ -1,15 +1,14 @@
 /**
- * Growth paths: the systems YardScale may build once a bottleneck is identified.
- * Each path is a flow (what has to happen) plus the infrastructure that supports it.
+ * Growth paths: the systems YardScale builds for solopreneurs once a
+ * bottleneck is identified. Each path is a flow (what has to happen) plus the
+ * infrastructure that supports it.
+ *
+ * Four paths, matching the four things a solopreneur with knowledge needs:
+ * an offer people can buy, a product that scales it, a funnel that converts,
+ * and distribution that fills it.
  */
 
-export type GrowthPathId =
-  | "lead-generation"
-  | "conversion"
-  | "high-ticket"
-  | "creator-monetization"
-  | "education"
-  | "digital-product";
+export type GrowthPathId = "high-ticket" | "course" | "funnel" | "distribution";
 
 export type GrowthPath = {
   id: GrowthPathId;
@@ -24,79 +23,63 @@ export type GrowthPath = {
 };
 
 export const growthPaths: Record<GrowthPathId, GrowthPath> = {
-  "lead-generation": {
-    id: "lead-generation",
-    name: "Lead Generation",
-    premise:
-      "Attention arrives, but nothing captures it or sorts it. Interested people leave without becoming a conversation you can have.",
-    flow: ["Traffic", "Landing Page", "Lead Capture", "Qualification", "Sales Conversation"],
-    builds: ["Landing page", "Lead funnel", "Qualification flow", "Conversion infrastructure"],
-    ctaLabel: "Build this system",
-  },
-  conversion: {
-    id: "conversion",
-    name: "Conversion",
-    premise:
-      "People find you and understand roughly what you do, but the path from interest to action is unclear, slow, or missing.",
-    flow: ["Attention", "Offer", "Website", "CTA", "Lead", "Customer"],
-    builds: ["Website", "Offer architecture", "Landing page", "Conversion system"],
-    ctaLabel: "Build this system",
-  },
   "high-ticket": {
     id: "high-ticket",
     name: "High-Ticket Offer",
     premise:
-      "You have real expertise and can deliver a high-value outcome, but it is not packaged, positioned, or sold through a repeatable process.",
-    flow: ["Expertise", "Positioning", "Offer", "Application", "Sales Call", "Customer"],
+      "You can deliver a valuable outcome, but it is not packaged, priced, or positioned as something a stranger can evaluate and buy.",
+    flow: ["Expertise", "Positioning", "Offer", "Application", "Sales Conversation", "Client"],
     builds: [
-      "Offer infrastructure",
-      "Application funnel",
-      "Landing page",
-      "High-ticket conversion system",
+      "Offer architecture and positioning",
+      "Pricing and scope structure",
+      "Application and qualification funnel",
+      "Sales page",
+      "Booking and follow-up infrastructure",
     ],
     ctaLabel: "Build this system",
   },
-  "creator-monetization": {
-    id: "creator-monetization",
-    name: "Creator Monetization",
+  course: {
+    id: "course",
+    name: "Course / Knowledge Product",
     premise:
-      "Content is working. Audience is growing. But there is no owned destination and nothing for that attention to convert into.",
-    flow: ["Content", "Audience", "Lead Magnet", "Offer", "Customer"],
+      "Your knowledge is repeatable and currently delivered live, one person at a time. It needs a structure people can buy, complete, and get a result from.",
+    flow: ["Knowledge", "Curriculum", "Platform", "Sales Page", "Customer"],
     builds: [
-      "Creator website",
-      "Lead magnet funnel",
-      "Email capture infrastructure",
-      "High-ticket offer system",
-      "Digital product infrastructure",
+      "Course platform and member area",
+      "Curriculum and progression structure",
+      "Sales page and checkout",
+      "Free-value to paid-product path",
+      "Delivery and access infrastructure",
     ],
     ctaLabel: "Build this system",
   },
-  education: {
-    id: "education",
-    name: "Education",
+  funnel: {
+    id: "funnel",
+    name: "Conversion Funnel",
     premise:
-      "Your knowledge is valuable and repeatable. It needs a structure people can buy, complete, and get results from.",
-    flow: ["Audience", "Free Value", "Education", "Course / Program", "Customer"],
+      "People find you and roughly understand what you do, but the path from interest to a booked call or a purchase is unclear, slow, or missing entirely.",
+    flow: ["Attention", "Landing Page", "Capture", "Qualification", "Booked Call or Purchase"],
     builds: [
-      "Education platform",
-      "Course infrastructure",
-      "Landing pages",
-      "Funnel",
-      "Customer journey",
+      "Landing pages built per traffic source",
+      "Lead capture and qualification",
+      "Automated follow-up sequence",
+      "Booking or checkout flow",
+      "Tracking and attribution",
     ],
     ctaLabel: "Build this system",
   },
-  "digital-product": {
-    id: "digital-product",
-    name: "Digital Product / App",
+  distribution: {
+    id: "distribution",
+    name: "Distribution & Paid Traffic",
     premise:
-      "The solution is a product, not a page. Someone needs to use software to get the outcome you are selling.",
-    flow: ["Problem", "Product", "Digital Experience", "User", "Retention"],
+      "The offer converts when people see it. The problem is that not enough of the right people do, and there is no reliable way to change that.",
+    flow: ["Offer", "Channel", "Creative", "Traffic", "Funnel", "Customer"],
     builds: [
-      "Web application",
-      "Mobile application",
-      "Customer portal",
-      "Custom digital product",
+      "Channel strategy and audience targeting",
+      "Paid campaign setup and management",
+      "Creative and angle testing",
+      "Owned capture so reach accumulates",
+      "Cost and attribution tracking",
     ],
     ctaLabel: "Build this system",
   },

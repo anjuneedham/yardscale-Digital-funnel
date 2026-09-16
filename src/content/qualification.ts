@@ -31,12 +31,11 @@ export const qualificationQuestions: QualificationQuestion[] = [
     type: "single",
     required: true,
     options: [
-      { value: "creator", label: "Creator or personal brand" },
-      { value: "service", label: "Service business or agency" },
       { value: "coach-consultant", label: "Coach or consultant" },
-      { value: "educator", label: "Educator or course business" },
-      { value: "product", label: "Product, software or e-commerce" },
-      { value: "local", label: "Local or in-person business" },
+      { value: "educator", label: "Educator or course creator" },
+      { value: "creator", label: "Creator or personal brand" },
+      { value: "freelancer", label: "Freelancer or independent specialist" },
+      { value: "service", label: "Service business with a small team" },
       { value: "pre-launch", label: "Pre-launch — not trading yet" },
     ],
   },
@@ -67,12 +66,10 @@ export const qualificationQuestions: QualificationQuestion[] = [
     type: "single",
     required: true,
     options: [
-      { value: "lead-generation", label: "Not enough qualified leads" },
-      { value: "conversion", label: "Attention arrives, but nobody acts" },
       { value: "high-ticket", label: "The offer isn't packaged or positioned" },
-      { value: "creator-monetization", label: "An audience with nothing to convert into" },
-      { value: "education", label: "Expertise that needs to become a product" },
-      { value: "digital-product", label: "The solution needs to be software" },
+      { value: "course", label: "Expertise that needs to become a product" },
+      { value: "funnel", label: "Attention arrives, but nobody books or buys" },
+      { value: "distribution", label: "The offer works, but not enough people see it" },
       { value: "unknown", label: "Not sure yet — something isn't working" },
     ],
   },
@@ -84,14 +81,12 @@ export const qualificationQuestions: QualificationQuestion[] = [
     type: "multi",
     required: false,
     options: [
-      { value: "website", label: "Website" },
-      { value: "landing-page", label: "Landing page" },
-      { value: "funnel", label: "Funnel" },
-      { value: "lead-system", label: "Lead generation system" },
       { value: "high-ticket-offer", label: "High-ticket offer system" },
-      { value: "course", label: "Course or education platform" },
-      { value: "digital-product", label: "Digital product" },
-      { value: "mobile-app", label: "Mobile app" },
+      { value: "course", label: "Course or knowledge product" },
+      { value: "funnel", label: "Funnel" },
+      { value: "landing-page", label: "Landing page" },
+      { value: "website", label: "Website" },
+      { value: "paid-traffic", label: "Paid traffic and distribution" },
       { value: "not-sure", label: "I don't know yet" },
     ],
   },
@@ -196,18 +191,16 @@ export function buildRecommendation(answers: QualificationAnswers): Recommendati
 
   if (stuck !== "unknown" && stuck in growthPaths) {
     pathId = stuck as GrowthPathId;
-  } else if (businessType === "creator" && audience !== "none") {
-    pathId = "creator-monetization";
-  } else if (businessType === "educator") {
-    pathId = "education";
-  } else if (businessType === "coach-consultant") {
+  } else if (businessType === "educator" || building.includes("course")) {
+    pathId = "course";
+  } else if (businessType === "coach-consultant" || building.includes("high-ticket-offer")) {
     pathId = "high-ticket";
-  } else if (building.includes("mobile-app") || building.includes("digital-product")) {
-    pathId = "digital-product";
   } else if (website === "yes-not-converting") {
-    pathId = "conversion";
+    pathId = "funnel";
+  } else if (audience !== "none" && website === "yes-converting") {
+    pathId = "distribution";
   } else {
-    pathId = "lead-generation";
+    pathId = "funnel";
   }
 
   const path = growthPaths[pathId];

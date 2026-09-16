@@ -12,11 +12,11 @@ export const site = {
   /** The brand kit's own line, used where the lockup needs a voice. */
   promise: "We build. You grow.",
   /** The three disciplines named in the brand kit, in its order. */
-  disciplines: ["Websites", "Funnels", "Lead generation"],
+  disciplines: ["Offers", "Funnels", "Distribution"],
   /** The three outcomes named in the brand kit, in its order. */
   outcomes: ["More customers", "More sales", "Real growth"],
   description:
-    "YardScale Digital is a growth operator agency. We identify the bottleneck between attention and revenue, then build the infrastructure that solves it — websites, funnels, offer systems, education platforms, digital products and apps.",
+    "YardScale Digital builds high-ticket offers, courses and funnels for solopreneurs — then runs the paid distribution that fills them. We identify the bottleneck between attention and revenue, and build the system that solves it.",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@yardscaledigital.com",
   locale: "en_US",
 } as const;
@@ -67,11 +67,10 @@ export const footerNav: { title: string; links: { label: string; href: string }[
   {
     title: "Capabilities",
     links: [
-      { label: "Websites", href: "/what-we-build#websites" },
-      { label: "Funnels", href: "/what-we-build#funnels" },
       { label: "High-Ticket Offers", href: "/what-we-build#high-ticket-offers" },
-      { label: "Courses & Education", href: "/what-we-build#courses-education" },
-      { label: "Digital Products", href: "/what-we-build#digital-products" },
+      { label: "Courses & Knowledge Products", href: "/what-we-build#courses-education" },
+      { label: "Funnels & Landing Pages", href: "/what-we-build#funnels" },
+      { label: "Distribution & Paid Traffic", href: "/what-we-build#distribution" },
     ],
   },
   {

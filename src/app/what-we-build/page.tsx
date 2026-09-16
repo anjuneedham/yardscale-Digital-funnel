@@ -13,17 +13,15 @@ import { FlowDiagram } from "@/components/visuals/FlowDiagram";
 export const metadata: Metadata = pageMetadata({
   title: "What We Build",
   description:
-    "Websites, funnels, landing pages, high-ticket offer systems, courses and education platforms, creator monetization, digital products, mobile apps and custom growth systems — and how to tell which one your business actually needs.",
+    "High-ticket offer systems, courses and knowledge products, funnels and landing pages, and the paid distribution that fills them — and how to tell which one your business actually needs.",
   path: "/what-we-build",
   keywords: [
-    "conversion focused website",
-    "sales funnel build",
-    "landing page design",
     "high-ticket offer system",
     "course platform development",
-    "creator monetization system",
-    "digital product development",
-    "mobile app development",
+    "sales funnel build",
+    "landing page design",
+    "paid traffic management",
+    "solopreneur growth system",
   ],
 });
 

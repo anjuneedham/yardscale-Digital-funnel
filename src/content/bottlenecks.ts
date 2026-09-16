@@ -2,9 +2,11 @@ import type { GrowthPathId } from "./growth-paths";
 
 /**
  * The homepage diagnostic.
- * Each option maps a symptom the visitor recognises to a likely bottleneck
- * and a possible growth path. Language is deliberately non-absolute — this is
- * a starting hypothesis, not a professional diagnosis.
+ *
+ * Written for solopreneurs with knowledge to sell. Each option maps a symptom
+ * the visitor recognises to a likely bottleneck and a possible growth path.
+ * Language is deliberately non-absolute — this is a starting hypothesis, not a
+ * professional diagnosis.
  */
 
 export type Bottleneck = {
@@ -24,116 +26,88 @@ export type Bottleneck = {
 
 export const bottlenecks: Bottleneck[] = [
   {
-    id: "qualified-leads",
-    option: "I need more qualified leads.",
-    short: "Qualified leads",
-    likelyBottleneck: "Lead capture and qualification",
-    reading:
-      "The problem is usually not volume. It is that interest arrives with nowhere to go and no way to sort serious buyers from browsers. Without capture and qualification, every good lead depends on someone happening to email you.",
-    signs: [
-      "Traffic exists, but you cannot name where a lead enters the business.",
-      "Enquiries arrive unstructured, so you qualify manually on every call.",
-      "Good-fit and bad-fit prospects get the same experience.",
-    ],
-    path: "lead-generation",
-  },
-  {
-    id: "no-action",
-    option: "People see my business, but they don't take action.",
-    short: "No action taken",
-    likelyBottleneck: "Offer clarity and next-step design",
-    reading:
-      "Visibility is doing its job. What is missing is a specific, obvious, low-friction next step — and an offer stated clearly enough that someone can decide it is for them.",
-    signs: [
-      "The page describes what you do, not what someone should do next.",
-      "Several competing calls to action, so none of them lands.",
-      "The offer is understandable to you and ambiguous to a stranger.",
-    ],
-    path: "conversion",
-  },
-  {
-    id: "website-not-converting",
-    option: "My website isn't converting.",
-    short: "Website not converting",
-    likelyBottleneck: "Conversion infrastructure",
-    reading:
-      "Your website may not need to look different. It may need to function differently. A site that presents information is a brochure; a site that moves someone from attention to action is a system.",
-    signs: [
-      "The site is attractive but has no defined conversion path.",
-      "No lead capture beyond a contact form nobody fills in.",
-      "Nothing happens after someone shows interest.",
-    ],
-    path: "conversion",
-  },
-  {
-    id: "need-funnel",
-    option: "I need a funnel.",
-    short: "Need a funnel",
-    likelyBottleneck: "Customer journey architecture",
-    reading:
-      "A funnel is not a page — it is a sequence. The work is deciding what has to happen at each step, what the visitor gets, and what qualifies them to move forward. The build follows that decision.",
-    signs: [
-      "You know you need a funnel but not which one, or for which offer.",
-      "Traffic goes to a homepage rather than a purpose-built entry point.",
-      "No structured follow-up after the first interaction.",
-    ],
-    path: "lead-generation",
-  },
-  {
-    id: "offer-packaging",
-    option: "I have an offer but don't know how to package or sell it.",
-    short: "Offer packaging",
+    id: "no-offer",
+    option: "I have expertise, but nothing packaged that people can buy.",
+    short: "No packaged offer",
     likelyBottleneck: "Offer architecture and positioning",
     reading:
-      "When an offer is hard to sell, it is often because it has not been shaped into something a buyer can evaluate — a specific outcome, for a specific person, with a clear reason to act now.",
+      "The expertise is real. What is missing is the shape around it — a specific outcome, for a specific person, at a price you can say out loud without flinching. Until that exists, every sale is improvised from scratch.",
     signs: [
+      "You explain what you do differently every time you are asked.",
       "Pricing changes depending on who is asking.",
-      "You explain the offer differently every time.",
-      "Prospects ask what they actually get.",
+      "Prospects want to work with you but cannot tell what they would be buying.",
     ],
     path: "high-ticket",
   },
   {
-    id: "course",
-    option: "I want to turn my expertise into a course or education product.",
-    short: "Course / education",
+    id: "knowledge-to-course",
+    option: "I want to turn what I know into a course or product.",
+    short: "Course or product",
     likelyBottleneck: "Education infrastructure",
     reading:
       "Knowledge does not become a product by being recorded. It needs a structure people can progress through, a way to buy it, and a path that leads them there from the content you already publish.",
     signs: [
       "You teach the same thing repeatedly, one person at a time.",
-      "The material exists, but nothing hosts, sells, or sequences it.",
-      "No route from free content to a paid education product.",
+      "The material exists in pieces, but nothing hosts, sequences or sells it.",
+      "Your income stops the moment you stop delivering.",
     ],
-    path: "education",
+    path: "course",
   },
   {
-    id: "monetize-audience",
-    option: "I want to monetize my audience.",
-    short: "Monetize audience",
-    likelyBottleneck: "Owned destination and offer",
+    id: "no-action",
+    option: "People land on my site, but they don't book or buy.",
+    short: "Nobody acts",
+    likelyBottleneck: "Conversion path design",
     reading:
-      "Audience attention on a platform you do not own converts only if it has somewhere to go. That usually means a destination you control, a reason to give you an email address, and something to buy at the end of it.",
+      "Attention is arriving and leaking out. Usually the page describes the business rather than carrying someone to one specific decision — or the decision is there, but competing with three other things to click.",
     signs: [
-      "Audience growth is not tracked by any owned asset — email, community, customers.",
+      "The page explains what you do, not what someone should do next.",
+      "Several calls to action compete, so none of them lands.",
+      "Nothing happens automatically after someone shows interest.",
+    ],
+    path: "funnel",
+  },
+  {
+    id: "content-not-converting",
+    option: "I'm posting content, but it doesn't turn into clients.",
+    short: "Content, no clients",
+    likelyBottleneck: "Missing path between content and offer",
+    reading:
+      "The content is doing its job — it is producing attention. What is missing is the destination underneath it: somewhere for that attention to go, a reason to leave an email address, and an offer at the end of it.",
+    signs: [
       "The link in bio points at a platform, not a system.",
-      "Nothing to buy, or something to buy with no path to it.",
+      "Audience growth is not tracked by anything you own.",
+      "There is nothing to buy, or something to buy with no path to it.",
     ],
-    path: "creator-monetization",
+    path: "funnel",
   },
   {
-    id: "product-or-app",
-    option: "I need a digital product or mobile app.",
-    short: "Product or app",
-    likelyBottleneck: "Product definition before build",
+    id: "not-enough-visibility",
+    option: "I have an offer, but not enough people see it.",
+    short: "Not enough reach",
+    likelyBottleneck: "Distribution",
     reading:
-      "An app is an expensive answer, so the question has to be right. The first work is defining the specific problem it solves and the process it replaces — then building the smallest version that proves it.",
+      "When an offer converts for the people who find it, the constraint has moved to reach. That is a distribution problem — a channel run properly, pointed at a destination built for it, rather than more tactics tried briefly.",
     signs: [
-      "The idea is described in features rather than in the problem it removes.",
-      "The underlying process has not been run manually yet.",
-      "No defined first user, or no way to reach them.",
+      "The people who do find you convert reasonably well.",
+      "You have tried several channels for a few weeks each.",
+      "There is no repeatable way you can point at that brings new people in.",
     ],
-    path: "digital-product",
+    path: "distribution",
+  },
+  {
+    id: "ads-not-paying-back",
+    option: "I'm running ads or promotion, and it isn't paying back.",
+    short: "Ads not paying back",
+    likelyBottleneck: "Traffic and destination mismatch",
+    reading:
+      "Paid traffic amplifies whatever the destination already does. When spend does not return, the cause is usually the join between the two — the ad promises one thing, the page continues another, and the click is paid for twice.",
+    signs: [
+      "Ads send traffic to a general page rather than a purpose-built one.",
+      "You cannot say what a customer currently costs to acquire.",
+      "Results are judged within days, before delivery has settled.",
+    ],
+    path: "distribution",
   },
   {
     id: "unknown",
@@ -141,13 +115,13 @@ export const bottlenecks: Bottleneck[] = [
     short: "Not sure yet",
     likelyBottleneck: "Diagnosis",
     reading:
-      "This is a legitimate answer and a common one. Something is not working, and the symptom is not the cause. The next step is mapping what exists today — audience, offer, infrastructure, conversion — and finding the point where the chain breaks.",
+      "This is a legitimate answer and a common one. Something is not working, and the symptom is rarely the cause. The next step is mapping what exists today — audience, offer, funnel, distribution — and finding the point where the chain breaks.",
     signs: [
       "Effort is going in and results are not coming out.",
       "You have tried individual fixes without a model of the whole system.",
       "You are not sure which part is underperforming.",
     ],
-    path: "conversion",
+    path: "funnel",
   },
 ];
 

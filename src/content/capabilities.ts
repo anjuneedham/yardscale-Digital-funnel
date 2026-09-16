@@ -1,9 +1,9 @@
 /**
- * What YardScale builds and runs. Four practice areas, not a menu of nine
- * unrelated deliverables: funnels get built, paid traffic points at them,
- * and digital products / courses are shipped both for YardScale itself and
- * for clients. Add or edit entries here — the homepage grid and
- * /what-we-build page both read this file.
+ * What YardScale builds. Four capabilities, matching what a solopreneur with
+ * knowledge to sell actually needs: an offer people can buy, a product that
+ * scales it, a funnel that converts, and the distribution that fills it.
+ *
+ * The homepage grid and /what-we-build page both read this file.
  */
 
 export type Capability = {
@@ -20,75 +20,75 @@ export type Capability = {
 
 export const capabilities: Capability[] = [
   {
-    id: "funnels",
-    name: "Funnels & Websites",
-    summary: "Owned funnels and websites architected to convert, not just published.",
+    id: "high-ticket-offers",
+    name: "High-Ticket Offer Systems",
+    summary: "Turning expertise into an offer a stranger can evaluate and buy.",
     whatItIs:
-      "A website, funnel, or landing page built as a sequence toward one decision. Structure, copy hierarchy, and calls to action follow the decision a visitor has to make — not a template.",
+      "The positioning, pricing, and application flow that make a high-value offer buyable — a specific outcome, for a specific person, with the scope and risk stated clearly enough to decide without a call.",
     whoNeedsIt:
-      "Businesses who need a destination that can actually carry traffic to a result, whether that traffic is paid, organic, or referral.",
+      "Solopreneurs, coaches and consultants whose expertise is real but unpackaged, priced inconsistently, and sold one improvised conversation at a time.",
     problemItSolves:
-      "Most sites and funnels are unarchitected — a homepage, a contact form, and no defined path from attention to a decision. Paid traffic exposes that immediately: clicks cost money, and an unarchitected destination wastes them.",
+      "When an offer is hard to sell, it is usually because it has not been shaped into something a buyer can assess. Every sale gets rebuilt from scratch, and the price moves depending on who is asking.",
     couldInclude: [
-      "Conversion-led site or funnel architecture",
-      "Landing pages built per traffic source",
-      "Offer and messaging hierarchy",
-      "Lead capture, qualification and follow-up",
-      "Analytics and attribution wiring",
-    ],
-  },
-  {
-    id: "paid-advertising",
-    name: "Paid Advertising & Promotion",
-    summary: "Paid traffic and promotion run toward a funnel built to convert it.",
-    whatItIs:
-      "Campaign setup and ongoing management across paid channels, pointed at a funnel designed for that specific traffic — built and run as one system rather than handed off in isolation.",
-    whoNeedsIt:
-      "Businesses with a funnel that is ready for traffic, or that need the ad and the destination designed together from the start.",
-    problemItSolves:
-      "Paid traffic sent to a generic page burns spend without producing a signal you can act on. Running the promotion and the destination as one system is what makes the spend measurable and improvable.",
-    couldInclude: [
-      "Campaign structure and audience targeting",
-      "Creative and offer alignment with the destination",
-      "Budget pacing and channel selection",
-      "Conversion tracking and attribution",
-      "Ongoing optimization against results",
-    ],
-  },
-  {
-    id: "digital-products",
-    name: "Digital Products & Apps",
-    summary: "Software and apps built for our own products, and for clients' businesses.",
-    whatItIs:
-      "A web or mobile product that delivers the outcome directly, rather than describing it. We build these for our own products as well as for clients — the same practice, the same standard.",
-    whoNeedsIt:
-      "Businesses and creators whose value is in a tool, process, or experience — not a service delivered by hand.",
-    problemItSolves:
-      "A manual process that works but cannot scale, or an idea that only becomes real once someone can use it.",
-    couldInclude: [
-      "Product definition and scoping",
-      "Web application or mobile app build",
-      "Customer portal or dashboard",
-      "Payment and access infrastructure",
-      "Onboarding and retention flow",
+      "Offer architecture and positioning",
+      "Pricing and scope structure",
+      "Application and qualification funnel",
+      "Sales page and pre-call framing",
+      "Booking and follow-up infrastructure",
     ],
   },
   {
     id: "courses-education",
-    name: "Courses & Education",
-    summary: "Course and education infrastructure, built for our own curriculum and for clients'.",
+    name: "Courses & Knowledge Products",
+    summary: "Structuring what you know into something that sells without your time.",
     whatItIs:
-      "The platform, curriculum structure, sales path, and delivery for a course or education product — the same infrastructure we run our own course on.",
+      "A structured learning product plus everything around it — the platform that hosts it, the page that sells it, and the path that leads people to it. We run our own course on the same infrastructure.",
     whoNeedsIt:
-      "Educators, operators, and creators whose knowledge is repeatable and currently delivered live, one person at a time — or businesses building education as a product line.",
+      "Educators, operators and creators whose knowledge is repeatable and currently delivered live, one person at a time.",
     problemItSolves:
-      "Teaching does not scale until it is structured, hosted, sold through a repeatable path, and connected to a funnel that brings people to it.",
+      "Teaching does not scale until it is structured, hosted, and sold through a repeatable path. Until then, income stops the moment delivery stops.",
     couldInclude: [
-      "Education platform or course hosting",
+      "Course platform and member area",
       "Curriculum and progression structure",
-      "Sales page, checkout and funnel",
+      "Sales page and checkout",
       "Free-value to paid-product path",
-      "Community or cohort infrastructure",
+      "Access and delivery infrastructure",
+    ],
+  },
+  {
+    id: "funnels",
+    name: "Funnels & Landing Pages",
+    summary: "The path that carries attention to a booked call or a purchase.",
+    whatItIs:
+      "A defined sequence from first contact to a decision, with a specific job at every step — built as a conversion path rather than a set of pages that describe the business.",
+    whoNeedsIt:
+      "Anyone sending traffic — paid, organic, or content — into a destination that was not built to convert it.",
+    problemItSolves:
+      "Attention arrives at a general-purpose page, gets no specific next step, and leaves. A funnel replaces that with a sequence you can measure and improve.",
+    couldInclude: [
+      "Landing pages built per traffic source",
+      "Lead capture and qualification",
+      "Automated follow-up sequence",
+      "Booking or checkout flow",
+      "Tracking and attribution wiring",
+    ],
+  },
+  {
+    id: "distribution",
+    name: "Distribution & Paid Traffic",
+    summary: "Getting the offer in front of the people it was built for.",
+    whatItIs:
+      "Channel strategy and paid campaign management, pointed at a funnel designed for that specific traffic — built and run as one system rather than handed off in isolation.",
+    whoNeedsIt:
+      "Solopreneurs whose offer converts for the people who find it, but who have no repeatable way to bring new people in.",
+    problemItSolves:
+      "Paid traffic sent to a generic page burns spend without producing a signal you can act on. Running the promotion and the destination together is what makes the spend measurable.",
+    couldInclude: [
+      "Channel strategy and audience targeting",
+      "Campaign setup and ongoing management",
+      "Creative and angle testing",
+      "Owned capture so reach accumulates",
+      "Cost per acquisition and attribution tracking",
     ],
   },
 ];

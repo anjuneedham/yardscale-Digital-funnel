@@ -44,12 +44,12 @@ const HOMEPAGE_FAQS = [
   {
     question: "How do I know what my growth bottleneck is?",
     answer:
-      "Start with the symptom you recognise: not enough qualified leads, attention that never converts, a website that does not perform, an offer that is hard to sell, or an audience with nothing to buy. Each symptom usually points to a specific stage of the growth system — capture, offer, conversion infrastructure, or product. The diagnostic on the YardScale homepage maps common symptoms to their likely bottleneck.",
+      "Start with the symptom you recognise: expertise with nothing packaged to buy, knowledge that should be a product, attention that never converts, or an offer too few people see. Each symptom usually points to a specific stage — offer, product, funnel, or distribution. The diagnostic on the YardScale homepage maps common symptoms to their likely bottleneck.",
   },
   {
     question: "Does YardScale Digital only build websites?",
     answer:
-      "No. Websites are one component. Depending on the bottleneck, a build may include landing pages, lead generation funnels, application and qualification flows, high-ticket offer systems, course and education platforms, creator monetization systems, custom digital products, or mobile applications.",
+      "No. A website is one component. Depending on the bottleneck, a build may include a high-ticket offer system, a course or knowledge product, landing pages and conversion funnels, application and qualification flows, or the paid distribution that fills them.",
   },
   {
     question: "What happens on a growth call?",
