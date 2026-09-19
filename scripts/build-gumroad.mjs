@@ -366,6 +366,187 @@ ${product.chapters.map((c) => renderChapter(c, product)).join("")}
 </body></html>`;
 }
 
+/* ---------------------------------------------------------------- images */
+
+/**
+ * Hand-built geometric motifs, per the project rule against stock imagery.
+ *
+ * Keyed by product slug rather than by category: three of these products are
+ * about websites and two about funnels, so category-level art would put
+ * near-identical thumbnails next to each other in a marketplace grid. The
+ * category entries are the fallback for anything added later.
+ */
+const MOTIFS = {
+  // Websites — a browser frame with content and one call to action.
+  "build-your-first-website": `
+    <rect x="14" y="20" width="172" height="120" rx="8"/>
+    <path d="M14 46h172"/>
+    <circle cx="30" cy="33" r="3.5" fill="currentColor" stroke="none"/>
+    <circle cx="42" cy="33" r="3.5" fill="currentColor" stroke="none"/>
+    <path d="M32 66h86M32 82h120M32 98h64"/>
+    <rect x="32" y="112" width="52" height="16" rx="8" fill="currentColor" stroke="none" opacity="0.9"/>`,
+
+  // Landing page — one narrow page driving down to a single action.
+  "landing-page": `
+    <rect x="58" y="12" width="84" height="142" rx="9"/>
+    <path d="M74 38h52M74 54h34"/>
+    <path d="M74 76h52M74 88h40"/>
+    <path d="M100 100v12M94 107l6 6 6-6"/>
+    <rect x="74" y="122" width="52" height="18" rx="9" fill="currentColor" stroke="none"/>`,
+
+  // Launch checklist — two verified, one still open.
+  "website-launch-checklist": `
+    <rect x="42" y="28" width="24" height="24" rx="6"/>
+    <path d="M48 40l4.5 5 9-11"/><path d="M80 40h76"/>
+    <rect x="42" y="70" width="24" height="24" rx="6"/>
+    <path d="M48 82l4.5 5 9-11"/><path d="M80 82h58"/>
+    <rect x="42" y="112" width="24" height="24" rx="6"/>
+    <path d="M80 124h70"/>`,
+
+  // Funnel mistakes — the same funnel, leaking at every stage.
+  "funnel-mistakes": `
+    <path d="M18 26h164M34 60h46M112 60h54M52 94h34M118 94h30M72 128h56"/>
+    <path d="M100 128v18"/>
+    <circle cx="100" cy="156" r="8" fill="currentColor" stroke="none"/>
+    <circle cx="94" cy="74" r="4.5" fill="currentColor" stroke="none" opacity="0.8"/>
+    <circle cx="100" cy="88" r="3" fill="currentColor" stroke="none" opacity="0.45"/>
+    <circle cx="176" cy="74" r="4.5" fill="currentColor" stroke="none" opacity="0.8"/>
+    <circle cx="188" cy="90" r="3" fill="currentColor" stroke="none" opacity="0.45"/>`,
+
+  // Funnel blueprint — the clean, complete sequence.
+  "funnel-blueprint": `
+    <path d="M18 26h164M34 60h132M52 94h96M72 128h56"/>
+    <path d="M100 128v22"/>
+    <circle cx="100" cy="160" r="9" fill="currentColor" stroke="none"/>`,
+
+  // Client acquisition — many sources converging into one pipeline.
+  "client-acquisition": `
+    <circle cx="26" cy="34" r="8"/><circle cx="26" cy="80" r="8"/><circle cx="26" cy="126" r="8"/>
+    <path d="M34 34c60 0 60 46 120 46M34 80h120M34 126c60 0 60-46 120-46"/>
+    <circle cx="164" cy="80" r="14" fill="currentColor" stroke="none"/>`,
+
+  // First client — one connection made, the rest still waiting.
+  "first-online-client": `
+    <circle cx="30" cy="38" r="7" opacity="0.32"/>
+    <circle cx="30" cy="126" r="7" opacity="0.32"/>
+    <circle cx="30" cy="82" r="11"/>
+    <path d="M41 82h76"/>
+    <circle cx="146" cy="82" r="22" fill="currentColor" stroke="none"/>
+    <path d="M137 82l6.5 7 13-15" stroke="#050505" stroke-width="4.5"/>`,
+
+  // App building — a product in the hand.
+  "app-building": `
+    <rect x="64" y="14" width="72" height="132" rx="12"/>
+    <path d="M88 26h24"/>
+    <circle cx="82" cy="60" r="5" fill="currentColor" stroke="none"/>
+    <circle cx="100" cy="60" r="5" fill="currentColor" stroke="none"/>
+    <circle cx="118" cy="60" r="5" fill="currentColor" stroke="none"/>
+    <circle cx="82" cy="84" r="5" fill="currentColor" stroke="none"/>
+    <circle cx="100" cy="84" r="5" fill="currentColor" stroke="none"/>
+    <circle cx="118" cy="84" r="5" fill="currentColor" stroke="none"/>
+    <rect x="80" y="108" width="40" height="14" rx="7" fill="currentColor" stroke="none" opacity="0.9"/>`,
+
+  // Category fallbacks for products added later.
+  growth: `
+    <path d="M18 146h168"/>
+    <rect x="32" y="110" width="26" height="36" rx="3"/>
+    <rect x="70" y="86" width="26" height="60" rx="3"/>
+    <rect x="108" y="56" width="26" height="90" rx="3" fill="currentColor" stroke="none" opacity="0.9"/>
+    <rect x="146" y="26" width="26" height="120" rx="3" fill="currentColor" stroke="none"/>`,
+};
+
+function motif(product, size) {
+  const art = MOTIFS[product.slug] ?? MOTIFS[product.category] ?? MOTIFS.growth;
+  return `<svg viewBox="0 0 200 165" width="${size}" height="${size * 0.825}" fill="none"
+    stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+    ${art}</svg>`;
+}
+
+const IMAGE_CSS = `
+  @font-face { font-family: x; src: local("Helvetica"); }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+         background:#050505; color:#f7f6f2; overflow:hidden; }
+  .grid { position:absolute; inset:0;
+    background-image:linear-gradient(rgba(56,56,56,.42) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(56,56,56,.42) 1px, transparent 1px);
+    background-size:48px 48px; }
+  .glow { position:absolute; border-radius:50%;
+    background:radial-gradient(closest-side, rgba(189,250,9,.16), transparent); }
+  .mark { font-family:ui-monospace,Menlo,monospace; font-size:13px; letter-spacing:.2em;
+          text-transform:uppercase; color:#84827c; }
+  .mark b { color:#f7f6f2; font-weight:600; }
+  .tag { display:inline-block; background:#bdfa09; color:#0a0a0a; font-family:ui-monospace,Menlo,monospace;
+         font-weight:700; letter-spacing:.1em; text-transform:uppercase; border-radius:99px; }
+  .motif { color:#bdfa09; opacity:.92; }
+  .meta { font-family:ui-monospace,Menlo,monospace; letter-spacing:.14em;
+          text-transform:uppercase; color:#84827c; }
+  .rule { height:2px; background:#bdfa09; border-radius:2px; }`;
+
+function renderCover(product) {
+  const price = product.price === null ? "Free" : `$${product.price}`;
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${IMAGE_CSS}
+    body { width:1280px; height:720px; position:relative; }
+    .wrap { position:relative; height:100%; display:flex; align-items:center;
+            padding:56px 64px; gap:48px; }
+    .left { flex:1; min-width:0; }
+    .tag { font-size:15px; padding:9px 18px; }
+    h1 { font-size:58px; line-height:1.04; letter-spacing:-.03em; font-weight:600;
+         margin:26px 0 0; max-width:13em; }
+    .sub { font-size:21px; line-height:1.5; color:#cac8c2; margin-top:20px; max-width:26em; }
+    .meta { font-size:13px; margin-top:34px; }
+    .rule { width:64px; margin-top:30px; }
+    .right { flex:none; width:300px; display:flex; justify-content:center; }
+    .foot { position:absolute; left:64px; bottom:38px; font-family:ui-monospace,Menlo,monospace;
+            font-size:13px; color:#84827c; letter-spacing:.06em; }
+  </style></head><body>
+    <div class="grid"></div>
+    <div class="glow" style="width:760px;height:560px;right:-180px;top:-120px;"></div>
+    <div class="wrap">
+      <div class="left">
+        <p class="mark"><b>YardScale Digital</b> &nbsp;/&nbsp; Education Library</p>
+        <div style="margin-top:38px"><span class="tag">${esc(formatLabels[product.format])} &middot; ${esc(price)}</span></div>
+        <h1>${esc(product.title)}</h1>
+        <p class="sub">${esc(product.summary)}</p>
+        <div class="rule"></div>
+        <p class="meta">${esc(difficultyLabels[product.difficulty])} &nbsp;&middot;&nbsp; ${esc(
+          formatDuration(product.estimatedMinutes),
+        )} &nbsp;&middot;&nbsp; ${product.chapters.length} parts</p>
+      </div>
+      <div class="right"><span class="motif">${motif(product, 280)}</span></div>
+    </div>
+    <p class="foot">yardscaledigital.com</p>
+  </body></html>`;
+}
+
+function renderThumb(product) {
+  const price = product.price === null ? "Free" : `$${product.price}`;
+  const title = product.shortTitle ?? product.title;
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${IMAGE_CSS}
+    body { width:600px; height:600px; position:relative; }
+    .wrap { position:relative; height:100%; display:flex; flex-direction:column;
+            padding:44px 44px 40px; }
+    .mark { font-size:11px; letter-spacing:.18em; }
+    .art { flex:1; display:flex; align-items:center; justify-content:center; }
+    .tag { font-size:13px; padding:7px 15px; }
+    h1 { font-size:38px; line-height:1.08; letter-spacing:-.028em; font-weight:600;
+         margin:18px 0 0; }
+    .rule { width:48px; margin-top:22px; }
+  </style></head><body>
+    <div class="grid"></div>
+    <div class="glow" style="width:520px;height:420px;left:50%;top:-80px;transform:translateX(-50%);"></div>
+    <div class="wrap">
+      <p class="mark"><b>YardScale</b> &nbsp;/&nbsp; Education</p>
+      <div class="art"><span class="motif">${motif(product, 240)}</span></div>
+      <div>
+        <span class="tag">${esc(formatLabels[product.format])} &middot; ${esc(price)}</span>
+        <h1>${esc(title)}</h1>
+        <div class="rule"></div>
+      </div>
+    </div>
+  </body></html>`;
+}
+
 /* --------------------------------------------------------------- listing */
 
 function renderListing(product) {
@@ -470,9 +651,22 @@ for (const product of educationProducts) {
     margin: { top: "18mm", bottom: "20mm", left: "16mm", right: "16mm" },
   });
 
+  // Cover 1280x720 and thumbnail 600x600, rendered at 2x for crispness.
+  const shot = await browser.newPage({ deviceScaleFactor: 2 });
+
+  await shot.setViewportSize({ width: 1280, height: 720 });
+  await shot.setContent(renderCover(product), { waitUntil: "load" });
+  await shot.screenshot({ path: join(OUT, `${product.slug}.cover.png`) });
+
+  await shot.setViewportSize({ width: 600, height: 600 });
+  await shot.setContent(renderThumb(product), { waitUntil: "load" });
+  await shot.screenshot({ path: join(OUT, `${product.slug}.thumb.png`) });
+
+  await shot.close();
+
   await writeFile(join(OUT, `${product.slug}.listing.md`), renderListing(product), "utf8");
   built.push(product);
-  console.log(`  ${product.tier === "free" ? "FREE" : `$${product.price} `}  ${product.slug}.pdf`);
+  console.log(`  ${product.tier === "free" ? "FREE" : `$${product.price} `}  ${product.slug}  (pdf + cover + thumb + listing)`);
 }
 
 await browser.close();
@@ -481,7 +675,7 @@ const index = `# Gumroad upload pack — YardScale Digital Education Library
 
 Generated by \`npm run build:gumroad\`. Regenerate whenever the content changes.
 
-Each product has two files:
+Each product has four files:
 - \`<slug>.pdf\` — upload this as the product file
 - \`<slug>.listing.md\` — title, description, contents and settings to paste into Gumroad
 
