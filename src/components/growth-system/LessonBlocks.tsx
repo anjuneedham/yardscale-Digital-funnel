@@ -15,10 +15,12 @@ export function LessonBlocks({ blocks }: { blocks: LessonBlock[] }) {
 function Block({ block }: { block: LessonBlock }) {
   switch (block.type) {
     case "heading":
+      // h2 because lesson bodies sit directly under the page h1. Styling is
+      // unchanged; this only keeps the heading order from skipping a level.
       return (
-        <h3 className="pt-2 text-lg font-semibold tracking-[-0.01em] text-ink sm:text-xl">
+        <h2 className="pt-2 text-lg font-semibold tracking-[-0.01em] text-ink sm:text-xl">
           {block.text}
-        </h3>
+        </h2>
       );
     case "text":
       return (
