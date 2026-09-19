@@ -547,6 +547,63 @@ function renderThumb(product) {
   </body></html>`;
 }
 
+/* --------------------------------------------------------------- receipt */
+
+/** Gumroad's download-button label. Hard limit of 26 characters. */
+const RECEIPT_BUTTON = {
+  "mini-course": "Download the course",
+  guide: "Download the guide",
+  tutorial: "Download the tutorial",
+  playbook: "Download the playbook",
+  blueprint: "Download the blueprint",
+  checklist: "Download the checklist",
+};
+
+/** The one thing worth telling a buyer the moment they open the receipt. */
+const RECEIPT_TIP = {
+  "build-your-first-website":
+    "Start with Module 2 even if you are itching to build. The planning is what stops you rebuilding three times.",
+  "funnel-mistakes":
+    "Go straight to the 10-Minute Audit at the end, score yourself honestly, then read the chapter for your lowest score.",
+  "first-online-client":
+    "The fourteen dated steps at the end are the whole thing. Put them in your calendar before you read anything else.",
+  "landing-page":
+    "Diagnose before you rewrite. Chapter 1 tells you whether your problem is motivation, ability or trigger, and that decides everything after.",
+  "funnel-blueprint":
+    "Pick your funnel model in chapter 2 before you build anything. Building the wrong model properly is still the wrong model.",
+  "client-acquisition":
+    "Chapter 5 is the 14-day challenge. Put all fourteen days in your calendar now, before you read the rest.",
+  "app-building":
+    "Do the five validation conversations in chapter 1 before writing a line of code. It is the cheapest week you will spend.",
+  "website-launch-checklist":
+    "Work it in one sitting rather than across several days. Record what you find, then fix the list afterwards, technical issues first.",
+};
+
+function receiptButton(product) {
+  const text = RECEIPT_BUTTON[product.format] ?? "Download";
+  if (text.length > 26) throw new Error(`Receipt button too long for ${product.slug}: ${text.length}`);
+  return text;
+}
+
+function receiptMessage(product) {
+  const next = product.nextStep
+    ? `\n\nNext: ${educationProducts.find((p) => p.slug === product.nextStep.slug)?.title} — yardscaledigital.com/education/${product.nextStep.slug}`
+    : "";
+
+  const message = `Thanks for picking this up.
+
+${RECEIPT_TIP[product.slug] ?? ""}${next}
+
+Questions? Reply to this email, a person reads it.
+
+— YardScale Digital`;
+
+  if (message.length > 500) {
+    console.warn(`  ! receipt message for ${product.slug} is ${message.length} chars (limit 500)`);
+  }
+  return message;
+}
+
 /* --------------------------------------------------------------- listing */
 
 function renderListing(product) {
@@ -608,6 +665,22 @@ ${contents}
 ## FAQ
 
 ${faqs}
+
+---
+
+## Receipt tab
+
+**Button text** (${receiptButton(product).length} of 26 characters)
+
+\`\`\`
+${receiptButton(product)}
+\`\`\`
+
+**Custom message** (${receiptMessage(product).length} of 500 characters)
+
+\`\`\`
+${receiptMessage(product)}
+\`\`\`
 
 ---
 
