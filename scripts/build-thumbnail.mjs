@@ -42,10 +42,15 @@ const BASE_CSS = `
     background:radial-gradient(closest-side, rgba(189,250,9,.22), transparent); }
 
   /* person slot */
-  .person { position:absolute; bottom:0; left:0; width:470px; height:700px;
+  .person { position:absolute; bottom:-8px; left:22px; width:500px; height:718px;
             display:flex; align-items:flex-end; justify-content:center; z-index:3; }
-  .person img { width:100%; height:100%; object-fit:contain; object-position:bottom center;
-                filter:drop-shadow(14px 0 30px rgba(0,0,0,.85)); }
+  /* The subject wears dark clothing and the ground is near-black, so a lime
+     rim plus a dark drop shadow is what keeps them from merging into it. */
+  .person img, .split-person img { width:100%; height:100%; object-fit:contain;
+      object-position:bottom center;
+      filter: drop-shadow(3px 0 0 ${LIME}) drop-shadow(-3px 0 0 ${LIME})
+              drop-shadow(0 -3px 0 ${LIME}) drop-shadow(0 3px 0 ${LIME})
+              drop-shadow(18px 6px 34px rgba(0,0,0,.9)); }
   .slot { width:400px; height:620px; border:5px dashed rgba(189,250,9,.55); border-radius:16px;
           display:flex; flex-direction:column; align-items:center; justify-content:center;
           gap:10px; background:rgba(189,250,9,.05); text-align:center; padding:24px; }
@@ -175,8 +180,6 @@ const VARIANT_C = `<!doctype html><html><head><meta charset="utf-8"><style>${BAS
   /* C keeps the person small and in the corner so the split stays readable. */
   .split-person { position:absolute; bottom:0; left:4px; width:300px; height:600px;
                   display:flex; align-items:flex-end; justify-content:center; z-index:6; }
-  .split-person img { width:100%; height:100%; object-fit:contain;
-                      object-position:bottom center; filter:drop-shadow(10px 0 26px rgba(0,0,0,.9)); }
   .split-person .slot { width:270px; height:470px; }
   .split-person .slot b { font-size:24px; }
   .split-person .slot span { font-size:14px; }
