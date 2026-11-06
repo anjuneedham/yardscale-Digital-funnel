@@ -1,0 +1,61 @@
+import type { SeedClip } from "../types";
+
+/**
+ * Depth layer for clips whose compact seed was too thin to write from.
+ * Key: "<day>.<clip 1-3>". Only the listed fields are replaced.
+ * Direction, not scripts: the owner writes the words.
+ */
+export type Depth = Record<string, Partial<Pick<SeedClip, "pt" | "vis" | "rec" | "end">>>;
+
+export const depthA: Depth = {
+  "10.2": { rec: "Open your discovery-question doc and highlight each question as you say it. Then show one real answer you got (names blurred) next to the question that produced it." },
+  "15.1": { end: "Say that the list, not the audience, is what makes outreach possible, and that you'll show the first ten names (blurred) tomorrow." },
+  "16.3": { end: "Say you'll report the real reply count tomorrow, including if it's zero, and that you won't judge the message until you have the data." },
+  "18.3": { pt: "Give the real pipeline: how many contacted, how many replied, how many conversations, how many proposals. Say which stage is the weakest and the one experiment you'll run on it this week." },
+  "19.2": { pt: "Walk through the pricing sheet row by row: discovery, build, testing, handover, buffer. Show one hypothetical project and how each row changes the total. State clearly that these are your working numbers, not market-proven ones.", end: "Say the buffer row is the one beginners forget and the one that protects you from scope creep." },
+  "20.1": { end: "Say a one-page proposal gets read and a twelve-page one gets skimmed, then show the last heading, 'Next step', because that's where deals stall." },
+  "20.2": { rec: "Screen-record a sentence being rewritten in the proposal doc: first as a feature ('user accounts and dashboards'), then as an outcome ('your team sees every job's status without calling anyone')." },
+  "20.3": { pt: "Show the 'Next step' section of a real or clearly-labelled sample proposal. Explain why it must be one specific action with a date, and compare it with the vague 'let me know' ending." },
+  "21.3": { pt: "Name one thing about sales that surprised you after three weeks. Be specific: the time it takes, how silence feels, how much of it is follow-up. Say what you're doing differently because of it." },
+  "22.3": { rec: "Screen-record the Lead Tracker with the three changes written as next-action notes, then the Campaign Notes page where you log the weekly reflection.", end: "Say the three changes out loud as commitments you'll report on in seven days." },
+  "23.2": { end: "Say that you won't dress a showcase build up as client work, and that if a real client appears you'll switch targets and say so." },
+  "23.3": { pt: "Say the app you're building, who it's for, and the date you intend to ship. Show the calendar from today to Dec 5 and be clear that 'might not finish' is a real possibility.", rec: "Dashboard calendar scrolled from Day 23 to Day 30, then the empty project folder or repo.", },
+  "24.1": { end: "Say the number of features you cut and the one you most wanted to keep, because the cut that hurts is usually the right one." },
+  "24.2": { end: "Say the one question in a way someone could repeat to a friend, then tell them to write theirs down before adding anything." },
+  "24.3": { end: "Say zero lines of code have been written, and that's deliberate, and that tomorrow the screens start." },
+  "25.1": { pt: "Show a sketch of one screen and say its single job in one sentence. Then show a screen from your own earlier work (Build Flow or Agriloop) that tries to do two jobs, and say how you'd split it." },
+  "25.3": { pt: "Show your actual setup: the tablet, the stylus or fingers, the screen-recording tool, the editing app, the posting apps. Be honest about what's awkward on a tablet and how you work around it.", end: "Say that the equipment isn't the constraint; consistency is, and that you've used only what you already own." },
+  "26.2": { end: "Say the rule: AI writes, you decide. Then name the one check you never skip." },
+  "26.3": { pt: "Show the sketch from Day 25 beside the first working screen in the browser. Be honest about what's different, what's missing and what surprised you.", end: "Say it's rough but it's real, and that tomorrow you'll deliberately look for what's broken." },
+  "27.1": { end: "Say what the bug would have done to a real user, and that you only caught it because you tried the unlikely thing." },
+  "27.2": { pt: "Teach a five-minute smoke test: try empty input, try wrong input, refresh mid-task, use it on a slow connection, and open it on a different device. Do each live on your app and say what you found.", end: "Say the point is to be the first person who breaks it, not the last." },
+  "28.2": { pt: "Teach three questions to ask any developer about data: where does it live, who can see it, and what happens if it's lost. Draw the three on screen and answer each for the app you're building.", end: "Say a founder who can't get clear answers to these three should slow down before paying anyone." },
+  "28.3": { pt: "Show a record created in the app, then refresh the page and show it's still there. Say why that tiny moment is the line between a mockup and an app.", end: "Say it's a small milestone and an honest one, and tomorrow a real person tries to break it." },
+  "29.1": { pt: "Describe the exact moment your tester hesitated or got stuck, what they were trying to do, and what you wanted to say but didn't. Say what you assumed was obvious and wasn't.", end: "Say that watching silently is the hardest and most useful part of testing." },
+  "29.2": { end: "Say that one real person found problems you couldn't see in a week of looking, which is why you test before you polish." },
+  "29.3": { pt: "Show the three changes you're making because of one user, with a before and after of each screen. Say which change you resisted and why you made it anyway." },
+  "30.1": { end: "Say the app is live with rough edges, and show the link so people can judge it themselves." },
+  "30.3": { pt: "Give the real cost: hours spent, tool subscriptions, anything paid, and what you'd charge a client for the same work. Say what this proves about pricing and what it doesn't." },
+  "31.1": { pt: "Start a visible timer and create a listing from sign-up to published on the Agriloop farmer side. Say aloud each field you fill and which ones you think a farmer would find awkward.", rec: "Screen-record the full farmer flow with a visible stopwatch overlay; keep the unedited clock in frame." },
+  "31.3": { pt: "Show the three friction points you found in your own farmer flow, with a circle on each screen. Say which you'll fix this week and which you're unsure how to fix.", end: "Say that finding flaws in your own product on camera is uncomfortable and cheaper than letting farmers find them." },
+  "32.1": { pt: "Explain that a buyer has no reason to trust a stranger's listing, and show which trust signals Agriloop has today (photos, location, profile, history) and which it lacks. Say which single signal you'd add first.", rec: "Open a real listing detail page on Agriloop (blur names) and circle each trust signal on it." },
+  "32.2": { pt: "Walk through search, listing detail and contact on the buyer side. Point at one thing that works and one that's unfinished.", end: "Say what a buyer would still need before they'd place a first order." },
+  "32.3": { pt: "Say the three needs buyers raised, or that you infer from the flow, that Agriloop doesn't yet meet. Mark each as 'heard from a buyer' or 'my guess' so viewers can tell the difference.", rec: "Backlog or notes doc with the three needs listed and tagged as heard or guessed.", end: "Say these three go to the top of the build list." },
+  "33.1": { end: "Say it plainly: you can't solve it by waiting for one side, so you'll start by being deliberately unscalable." },
+  "33.2": { pt: "Explain the 'wedge' idea: one place, one crop, one type of buyer. Use your own map or list to show what a tiny starting area for Agriloop could be.", rec: "Doc or map with one parish or area, one crop and one buyer type highlighted.", end: "Say small and real beats big and empty, and that you'll prove it works in one place first." },
+  "33.3": { pt: "Reveal the wedge you've chosen (area, crop, buyer type) and the number of first users you're aiming for. Say what would make you change it.", rec: "Plan doc showing the wedge and the first-20-users target.", end: "Say that you'll report the real count of people you reach in the coming days." },
+  "34.1": { rec: "Notes doc with two or three real quotes (anonymised, with permission) beside the Agriloop screen they relate to." },
+  "34.3": { pt: "Show the backlog before and after the farmer conversations: what moved up, what was added, what you removed. Say which change you're most sure about and which is a guess.", end: "Say farmers moved the roadmap more in a few conversations than your own planning did." },
+  "35.1": { rec: "Notes doc with buyer quotes or paraphrases (anonymised, with permission) and the sourcing problem each one describes.", end: "Say that's the gap Agriloop is trying to fill, and that you'll test whether buyers will actually act on it." },
+  "35.2": { pt: "Name three things that would make a buyer try a new supplier, drawn from your real conversations: price, reliability, quality, payment terms or something else. Say which they care about most.", rec: "Notes doc with the three switching triggers written out and ranked." },
+  "35.3": { pt: "Give a straight verdict on buyer demand based on what you actually heard: strong, small, or unproven. Say what evidence would change your view.", rec: "Notes doc with demand verdict and the evidence list beneath it.", end: "Say you'd rather report 'unproven' than pretend, and what you'll test next to find out." },
+  "36.1": { end: "Say fast loops beat big plans, and show the date and time of the request next to the date and time it shipped." },
+  "36.2": { pt: "Teach the three-step loop: ask, build the smallest thing, check if it helped. Walk through the Agriloop feature as the example, step by step.", end: "Say the check is the step most people skip, and tell people how you'll check this one." },
+  "36.3": { pt: "Show the screen before and after the feature. Say what it does for the farmer or buyer in one sentence and how you'll know whether it helped.", end: "Say you'd like people to try it and tell you what's wrong with it." },
+  "37.1": { end: "Say the one model you'd test first and why, and that the others stay hypotheses until real people pay." },
+  "37.2": { end: "Say these numbers are a model, not income, and that you'll only call it revenue when real money moves." },
+  "37.3": { pt: "Describe the cheapest honest revenue test for Agriloop, such as asking a handful of early users whether they'd pay for one specific thing. Say what result would count as a yes.", rec: "Doc with the test written as: who I ask, what I ask, what counts as a yes.", end: "Say you'll report the result either way." },
+  "38.1": { pt: "Put the Day 5 screens beside today's. Say the real change in numbers, features and conversations, and be honest about whether it's progress or just motion.", end: "Say what moved is small and real, and what hasn't moved is the number that matters most." },
+  "38.2": { pt: "List what Agriloop still doesn't have that a farmer or buyer would expect. Mark the ones people asked for versus the ones you assume.", rec: "Backlog doc with items tagged 'asked for' or 'my assumption'.", end: "Say you'd like viewers to tell you which gap matters most." },
+  "38.3": { pt: "Give three lessons from building a marketplace in public that you actually learned this chapter, each tied to one episode. Keep them specific to what happened, not general startup advice.", rec: "Notes page with three lessons, each linked to the day it came from.", end: "Say there's more to learn and the real test is whether people use it." },
+};

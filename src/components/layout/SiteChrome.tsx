@@ -13,7 +13,7 @@ import { SiteFooter } from "./SiteFooter";
  * normal YardScale chrome, so the course still feels native to the site.
  */
 
-const APP_PREFIXES = ["/growth-system/dashboard", "/growth-system/phase-"];
+const APP_PREFIXES = ["/growth-system/dashboard", "/growth-system/phase-", "/dashboard"];
 
 function isAppRoute(pathname: string): boolean {
   return APP_PREFIXES.some((prefix) => pathname.startsWith(prefix));

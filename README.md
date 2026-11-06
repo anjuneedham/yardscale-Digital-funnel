@@ -82,6 +82,16 @@ channels appear in the footer, link out from the Build Room, and are added to
 the `sameAs` array in the Organization structured data. Channels without an
 `href` render as "Soon" and are excluded from structured data.
 
+## Zero to Hero campaign dashboard
+
+A private, single-owner dashboard at `/dashboard` runs the 56-day "Zero to Hero"
+building-in-public campaign (Nov 6 – Dec 31, 2026): a populated content calendar,
+editable briefs and scripts, performance and lead tracking, and campaign notes.
+It is separate from the public funnel and from the Growth Operator System, and it
+needs `DASHBOARD_PASSCODE` to be usable. See `docs/zero-to-hero/` (STRATEGY,
+EXECUTION-GUIDE, ARCHITECTURE, QA-REPORT). Plan content lives in
+`src/content/campaign/`; validate it with `npx tsx scripts/check-campaign.ts`.
+
 ## Integrations
 
 Everything external is configured through environment variables — see
