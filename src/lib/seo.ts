@@ -40,25 +40,23 @@ export function organizationJsonLd() {
 
   return {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "Organization",
     "@id": `${site.url}#organization`,
     name: site.name,
     url: site.url,
     description: site.description,
     slogan: site.tagline,
     email: site.email,
+    founder: { "@type": "Person", name: site.founder },
     ...(sameAs.length > 0 ? { sameAs } : {}),
-    areaServed: "Worldwide",
     knowsAbout: [
-      "Growth systems",
-      "Conversion infrastructure",
-      "Sales funnels",
-      "Landing pages",
-      "High-ticket offer systems",
-      "Creator monetization",
-      "Course and education platforms",
-      "Digital products",
-      "Mobile application development",
+      "SaaS",
+      "Software product development",
+      "MVP development",
+      "AI-assisted software development",
+      "Startup validation",
+      "Customer acquisition",
+      "Founder education",
     ],
   };
 }
@@ -100,21 +98,13 @@ export function faqJsonLd(faqs: { question: string; answer: string }[]) {
   };
 }
 
-export function serviceJsonLd(services: { name: string; description: string; id: string }[]) {
+export function courseJsonLd(course: { name: string; description: string; path: string }) {
   return {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "YardScale Digital capabilities",
-    itemListElement: services.map((s, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: {
-        "@type": "Service",
-        name: s.name,
-        description: s.description,
-        url: `${site.url}/what-we-build#${s.id}`,
-        provider: { "@id": `${site.url}#organization` },
-      },
-    })),
+    "@type": "Course",
+    name: course.name,
+    description: course.description,
+    url: `${site.url}${course.path}`,
+    provider: { "@id": `${site.url}#organization` },
   };
 }

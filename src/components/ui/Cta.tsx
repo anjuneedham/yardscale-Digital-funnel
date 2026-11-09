@@ -16,7 +16,7 @@ const BASE =
 // read as a blur. Hover lifts it rather than spreading more glow.
 const VARIANTS: Record<Variant, string> = {
   primary:
-    "bg-signal font-semibold text-[color:var(--color-on-signal)] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.4),0_10px_26px_-14px_rgba(189,250,9,0.7)] hover:-translate-y-0.5 hover:bg-[#cbff35] hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5),0_18px_34px_-14px_rgba(189,250,9,0.85)]",
+    "bg-signal font-semibold text-[color:var(--color-on-signal)] hover:-translate-y-0.5 hover:bg-[#cbff35]",
   secondary:
     "border border-line-strong bg-raised/60 text-ink hover:-translate-y-0.5 hover:border-signal/60 hover:bg-raised",
   ghost: "text-ink-soft hover:text-ink",

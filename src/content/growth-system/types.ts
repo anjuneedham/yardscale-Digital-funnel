@@ -53,6 +53,10 @@ export type Lesson = {
   implementationTask?: string;
   recap?: string[];
   assets?: Asset[];
+  /** A short "done when" list the student ticks off. */
+  checklist?: string[];
+  /** A fill-in template, rendered as copyable plain text. */
+  template?: { title: string; body: string };
 };
 
 /** Publication state of a phase. Only "available" phases have full lessons. */

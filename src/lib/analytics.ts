@@ -6,45 +6,34 @@ import { readAttribution } from "./attribution";
  * Analytics dispatch layer.
  *
  * Vendor-agnostic on purpose. Events are pushed to `window.dataLayer` (works
- * with GTM, GA4 and most tag managers) and to any handler registered via
- * `registerAnalyticsSink`. If nothing is configured, events are simply queued
- * in memory — nothing breaks, and no vendor is hard-coded.
- *
- * To wire a provider later, call `registerAnalyticsSink` once on app start.
+ * with GTM, GA4 and most tag managers), sent to Vercel Analytics as custom
+ * events when it is present, and passed to any handler registered via
+ * `registerAnalyticsSink`.
  */
 
 export type FunnelEvent =
-  | "page_view"
-  | "hero_cta_click"
-  | "diagnostic_opened"
-  | "diagnostic_option_selected"
-  | "growth_path_viewed"
-  | "qualification_started"
-  | "qualification_step_completed"
-  | "qualification_completed"
-  | "qualification_submitted"
-  | "lead_magnet_submitted"
-  | "growth_request_submitted"
-  | "booking_cta_click"
-  | "content_channel_click";
+  | "cta_click"
+  | "video_play"
+  | "subscribe_submitted"
+  | "application_submitted"
+  | "content_click"
+  | "community_click";
 
 type EventProps = Record<string, string | number | boolean | null | undefined>;
 
 type Sink = (event: FunnelEvent, props: EventProps) => void;
 
 const sinks: Sink[] = [];
-const queue: { event: FunnelEvent; props: EventProps }[] = [];
 
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
+    va?: (event: "event", payload: { name: string; data?: Record<string, unknown> }) => void;
   }
 }
 
 export function registerAnalyticsSink(sink: Sink) {
   sinks.push(sink);
-  // Flush anything captured before the sink existed.
-  queue.splice(0).forEach(({ event, props }) => sink(event, props));
 }
 
 export function track(event: FunnelEvent, props: EventProps = {}) {
@@ -54,19 +43,20 @@ export function track(event: FunnelEvent, props: EventProps = {}) {
   const enriched: EventProps = {
     ...props,
     ys_platform: attribution.platform,
-    ys_session: attribution.sessionId,
     ys_campaign: attribution.last?.campaign || undefined,
-    ys_content: attribution.last?.content || undefined,
-    ys_medium: attribution.last?.medium || undefined,
     ys_landing: attribution.first?.landingPath || undefined,
   };
 
   window.dataLayer = window.dataLayer ?? [];
   window.dataLayer.push({ event, ...enriched });
 
-  if (sinks.length === 0) {
-    if (queue.length < 100) queue.push({ event, props: enriched });
-    return;
+  // Vercel Analytics custom event (no-op until the script has loaded).
+  try {
+    const data = Object.fromEntries(Object.entries(enriched).filter(([, v]) => v != null));
+    window.va?.("event", { name: event, data });
+  } catch {
+    // Analytics must never break the page.
   }
+
   sinks.forEach((sink) => sink(event, enriched));
 }

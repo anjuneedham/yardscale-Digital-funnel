@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { site, footerNav, socials, cta, bookingUrl } from "@/content/site";
+import { site, footerNav, socials, cta } from "@/content/site";
 import { CtaLink, ArrowGlyph } from "@/components/ui/Cta";
 import { Logo } from "./Logo";
 
@@ -10,39 +10,38 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-surface">
       <div className="container-x py-14 sm:py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_2fr]">
+        <div className="grid gap-12 lg:grid-cols-[1.3fr_2fr]">
           <div>
             <Logo />
             <p className="mt-5 max-w-sm text-pretty text-sm leading-relaxed text-muted">
-              A growth operator agency. We find the bottleneck between attention and
-              revenue, then build the infrastructure that solves it.
+              An app studio and SaaS founder education business. Practical systems for
+              turning software ideas into businesses.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <CtaLink href={cta.primary.href} event="hero_cta_click" eventProps={{ origin: "footer" }}>
-                {cta.primary.label} <ArrowGlyph />
+              <CtaLink href={cta.academy.href} event="cta_click" eventProps={{ origin: "footer", cta: "academy" }}>
+                {cta.academy.label} <ArrowGlyph />
               </CtaLink>
               <CtaLink
-                href={bookingUrl || cta.secondary.href}
+                href={cta.coaching.href}
                 variant="secondary"
-                event="booking_cta_click"
-                eventProps={{ origin: "footer" }}
-                {...(bookingUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                event="cta_click"
+                eventProps={{ origin: "footer", cta: "coaching" }}
               >
-                {cta.secondary.label}
+                {cta.coaching.label}
               </CtaLink>
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             {footerNav.map((group) => (
               <nav key={group.title} aria-label={group.title}>
                 <h2 className="label-mono">{group.title}</h2>
-                <ul className="mt-4 space-y-2.5">
+                <ul className="mt-4 space-y-1">
                   {group.links.map((link) => (
                     <li key={link.href + link.label}>
                       <Link
                         href={link.href}
-                        className="text-sm text-ink-soft transition-colors hover:text-ink"
+                        className="inline-block py-1.5 text-sm text-ink-soft transition-colors hover:text-ink"
                       >
                         {link.label}
                       </Link>
@@ -54,15 +53,12 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-6 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 flex flex-col gap-5 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <p className="text-xs text-faint">
-              © {year} {site.name}. All rights reserved.
+            <p className="text-xs text-muted">
+              © {year} {site.name}. Founded by {site.founder}.
             </p>
-            <a
-              href={`mailto:${site.email}`}
-              className="text-xs text-muted transition-colors hover:text-ink"
-            >
+            <a href={`mailto:${site.email}`} className="text-xs text-muted transition-colors hover:text-ink">
               {site.email}
             </a>
           </div>
@@ -82,9 +78,7 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
-          ) : (
-            <p className="text-xs text-faint">Channels launching soon.</p>
-          )}
+          ) : null}
         </div>
       </div>
     </footer>

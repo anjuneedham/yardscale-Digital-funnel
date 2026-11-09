@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/layout/JsonLd";
 import { SiteChromeHeader, SiteChromeFooter } from "@/components/layout/SiteChrome";
-import { FunnelProvider } from "@/components/funnel/FunnelProvider";
+import { AttributionCapture } from "@/components/layout/AttributionCapture";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,12 +24,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Build the growth system behind your business`,
+    default: `${site.name} — ${site.tagline}`,
     template: `%s`,
   },
   description: site.description,
   applicationName: site.name,
-  authors: [{ name: site.name, url: site.url }],
+  authors: [{ name: site.founder, url: site.url }],
   creator: site.name,
   publisher: site.name,
   formatDetection: { telephone: false },
@@ -68,13 +68,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <FunnelProvider>
-          <SiteChromeHeader />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <SiteChromeFooter />
-        </FunnelProvider>
+        <AttributionCapture />
+        <SiteChromeHeader />
+        <main id="main" className="flex-1">
+          {children}
+        </main>
+        <SiteChromeFooter />
         <Analytics />
       </body>
     </html>

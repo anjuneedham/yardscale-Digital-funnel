@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav, cta, bookingUrl } from "@/content/site";
+import { nav, cta } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { CtaLink, ArrowGlyph } from "@/components/ui/Cta";
 import { Logo } from "./Logo";
@@ -44,8 +44,7 @@ export function SiteHeader() {
         <nav aria-label="Primary" className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => {
-              const active =
-                item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+              const active = pathname.startsWith(item.href);
               return (
                 <li key={item.href}>
                   <Link
@@ -67,13 +66,12 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <div className="hidden sm:block">
             <CtaLink
-              href={bookingUrl || cta.secondary.href}
+              href={cta.coaching.href}
               className="whitespace-nowrap"
-              event="booking_cta_click"
-              eventProps={{ origin: "header" }}
-              {...(bookingUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              event="cta_click"
+              eventProps={{ origin: "header", cta: "coaching" }}
             >
-              {cta.secondary.label}
+              {cta.coaching.label}
             </CtaLink>
           </div>
 
@@ -93,7 +91,7 @@ export function SiteHeader() {
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-void lg:hidden">
+        <div id="mobile-nav" className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-void lg:hidden">
           <nav aria-label="Mobile" className="container-x py-6">
             <ul className="space-y-1">
               {nav.map((item) => (
@@ -110,19 +108,11 @@ export function SiteHeader() {
               ))}
             </ul>
             <div className="mt-6 grid gap-3">
-              <CtaLink href={cta.primary.href} size="lg" onClick={close} event="hero_cta_click" eventProps={{ origin: "mobile_nav" }}>
-                {cta.primary.label}
+              <CtaLink href={cta.coaching.href} size="lg" onClick={close} event="cta_click" eventProps={{ origin: "mobile_nav", cta: "coaching" }}>
+                {cta.coaching.label}
               </CtaLink>
-              <CtaLink
-                href={bookingUrl || cta.secondary.href}
-                variant="secondary"
-                size="lg"
-                onClick={close}
-                event="booking_cta_click"
-                eventProps={{ origin: "mobile_nav" }}
-                {...(bookingUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              >
-                {cta.secondary.label}
+              <CtaLink href={cta.academy.href} variant="secondary" size="lg" onClick={close} event="cta_click" eventProps={{ origin: "mobile_nav", cta: "academy" }}>
+                {cta.academy.label}
               </CtaLink>
             </div>
           </nav>

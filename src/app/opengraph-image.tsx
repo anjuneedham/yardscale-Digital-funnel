@@ -8,13 +8,13 @@ const markDataUri = `data:image/svg+xml;base64,${Buffer.from(
   readFileSync(join(process.cwd(), "src/app/icon.svg")),
 ).toString("base64")}`;
 
-export const alt = `${site.name} — Build the growth system behind your business`;
+export const alt = `${site.name} — Build your SaaS. Learn the entire process`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 /** Social share card. Generated, so it never drifts from the brand. */
 export default function OpengraphImage() {
-  const stages = ["Attention", "Offer", "System", "Conversion", "Customer", "Growth"];
+  const stages = ["Idea", "Validation", "Planning", "Building", "Launch", "Customers", "Growth"];
 
   return new ImageResponse(
     (
@@ -73,7 +73,7 @@ export default function OpengraphImage() {
             maxWidth: 950,
           }}
         >
-          Build the growth system behind your business.
+          Build your SaaS. Learn the entire process.
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "26px" }}>
@@ -102,7 +102,7 @@ export default function OpengraphImage() {
 
           <div style={{ display: "flex", alignItems: "center", gap: "14px", fontSize: 26 }}>
             <div style={{ display: "flex", color: "#9d9b95" }}>
-              {site.disciplines.join("  /  ")}
+              Courses  /  Community  /  Coaching  /  Partnerships
             </div>
           </div>
         </div>

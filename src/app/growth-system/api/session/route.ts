@@ -8,18 +8,32 @@ import {
   sessionSecret,
 } from "@/lib/growth-system/config";
 import { signToken, type GrowthSystemSession } from "@/lib/growth-system/session";
+import { recordSubscriber } from "@/lib/leads";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 /**
- * Session route for the Growth Operator System.
+ * Member session route, shared by the Academy and the Growth Operator System.
  *
- * POST with intent=login captures name + email (no access gate) and issues a
- * signed session cookie. POST with intent=logout clears it. Contact info is
- * optionally posted to LEAD_WEBHOOK_URL or the fallback FORM_WEBHOOK_URL for
- * lead capture / CRM sync.
+ * POST with intent=login takes a name + email and issues a signed session
+ * cookie — free access in exchange for an email address. Each sign-in is also
+ * recorded as a subscriber, so course readers join the owned email audience.
+ * POST with intent=logout clears the cookie.
  */
+
+const AREAS = {
+  academy: { prefix: "/academy", login: "/academy/sign-in", home: "/academy" },
+  growth: { prefix: "/growth-system", login: "/growth-system/login", home: "/growth-system/dashboard" },
+} as const;
+
+/** Only ever redirect to an on-site member path — never to a caller-supplied URL. */
+function resolveNext(next: string) {
+  const isLocal = next.startsWith("/") && !next.startsWith("//") && !next.includes("\\");
+  if (isLocal && next.startsWith(AREAS.academy.prefix)) return { area: AREAS.academy, path: next };
+  if (isLocal && next.startsWith(AREAS.growth.prefix)) return { area: AREAS.growth, path: next };
+  return { area: AREAS.growth, path: AREAS.growth.home };
+}
 
 function redirectTo(request: Request, path: string) {
   return NextResponse.redirect(new URL(path, request.url), { status: 303 });
@@ -28,42 +42,35 @@ function redirectTo(request: Request, path: string) {
 export async function POST(request: Request) {
   const form = await request.formData().catch(() => null);
   const intent = form?.get("intent");
+  const { area, path } = resolveNext(clamp(form?.get("next"), 200));
 
   if (intent === "logout") {
-    const res = redirectTo(request, "/growth-system");
+    const res = redirectTo(request, area === AREAS.academy ? "/academy" : "/growth-system");
+    res.cookies.set(SESSION_COOKIE, "", { path: "/", maxAge: 0 });
+    // Clear cookies issued before the session was widened to the whole site.
     res.cookies.set(SESSION_COOKIE, "", { path: "/growth-system", maxAge: 0 });
     return res;
   }
 
   const name = clamp(form?.get("name"), 120);
   const email = clamp(form?.get("email"), 254);
-  const next = clamp(form?.get("next"), 200);
-
-  const safeNext = next.startsWith("/growth-system") ? next : "/growth-system/dashboard";
+  // Honeypot: bots fill it. Send them on without a session.
+  if (clamp(form?.get("company"), 200)) return redirectTo(request, area.login);
 
   if (!isEmail(email)) {
-    return redirectTo(request, `/growth-system/login?error=email&next=${encodeURIComponent(safeNext)}`);
+    return redirectTo(request, `${area.login}?error=email&next=${encodeURIComponent(path)}`);
   }
   if (!name) {
-    return redirectTo(request, `/growth-system/login?error=name&next=${encodeURIComponent(safeNext)}`);
+    return redirectTo(request, `${area.login}?error=name&next=${encodeURIComponent(path)}`);
   }
 
-  // Capture contact as a lead (optional webhook).
-  const leadUrl = process.env.LEAD_WEBHOOK_URL || process.env.FORM_WEBHOOK_URL;
-  if (leadUrl) {
-    fetch(leadUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        type: "growth_system_enrollment",
-        email,
-        name,
-        timestamp: new Date().toISOString(),
-      }),
-    }).catch(() => {
-      // Fail silently; webhook failure does not block enrollment.
-    });
-  }
+  // Record the sign-in as a subscriber. A storage failure never blocks access.
+  await recordSubscriber({
+    email,
+    name,
+    origin: area === AREAS.academy ? "academy_signin" : "growth_system_signin",
+    context: { platform: clamp(form?.get("platform"), 60), attribution: null, path },
+  }).catch(() => undefined);
 
   const now = Math.floor(Date.now() / 1000);
   const session: GrowthSystemSession = {
@@ -76,12 +83,12 @@ export async function POST(request: Request) {
   };
   const token = await signToken(session, sessionSecret());
 
-  const res = redirectTo(request, safeNext);
+  const res = redirectTo(request, path);
   res.cookies.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    path: "/growth-system",
+    path: "/",
     maxAge: SESSION_MAX_AGE_SECONDS,
   });
   return res;

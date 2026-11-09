@@ -1,21 +1,30 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
-import { site, bookingUrl, cta } from "@/content/site";
+import { cta, site, socials } from "@/content/site";
 import { pageMetadata, breadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/layout/JsonLd";
 import { PageHero } from "@/components/layout/PageHero";
 import { Section } from "@/components/ui/Section";
-import { GrowthRequestForm } from "@/components/forms/GrowthRequestForm";
-import { CtaLink, ArrowGlyph } from "@/components/ui/Cta";
+import { ArrowGlyph } from "@/components/ui/Cta";
+import { ApplicationForm } from "@/components/forms/ApplicationForm";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
-    "Send YardScale Digital a growth request. Tell us what you sell, who you serve, and what's not working — we'll come back with a read on the bottleneck.",
+    "Contact YardScale Digital. For coaching or a partnership, use the application forms. For anything else, send a message.",
   path: "/contact",
 });
 
+const ROUTES = [
+  { title: "Coaching", detail: "Want one-on-one help with your SaaS? Use the coaching application.", ...cta.coaching },
+  { title: "Partnerships", detail: "Want YardScale to build with you? Use the partnership application.", ...cta.partnership },
+  { title: "Learning", detail: "Looking for the courses? Start in the Academy.", ...cta.academy },
+];
+
 export default function ContactPage() {
+  const liveSocials = socials.filter((s) => s.href);
+
   return (
     <>
       <JsonLd
@@ -27,12 +36,11 @@ export default function ContactPage() {
 
       <PageHero
         eyebrow="Contact"
-        title="Let's find the bottleneck."
+        title="Get in touch."
         lede={
           <p>
-            The more you tell us, the more useful our reply will be. We read every request
-            properly and answer with an actual opinion — including when the answer is that
-            you don&apos;t need us.
+            For coaching or a partnership, the application forms get you a faster and more
+            useful answer. For everything else, send a message here.
           </p>
         }
       />
@@ -40,51 +48,45 @@ export default function ContactPage() {
       <Section divider>
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-20">
           <div>
-            <GrowthRequestForm />
+            <h2 className="mb-6 text-2xl font-semibold tracking-[-0.025em]">Send a message</h2>
+            <ApplicationForm kind="contact" />
           </div>
 
-          <aside className="space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <div className="card p-6">
-              <h2 className="label-mono">Prefer to talk?</h2>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
-                A growth call is a working conversation, not a pitch. We look at what
-                exists today and where it breaks.
-              </p>
-              <CtaLink
-                href={bookingUrl || "/book"}
-                variant="secondary"
-                className="mt-5 w-full"
-                event="booking_cta_click"
-                eventProps={{ origin: "contact_sidebar" }}
-                {...(bookingUrl ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              >
-                {cta.secondary.label} <ArrowGlyph />
-              </CtaLink>
-            </div>
+          <aside className="lg:sticky lg:top-28 lg:self-start">
+            <h2 className="label-mono">The right door</h2>
+            <ul className="mt-4 border-t border-line">
+              {ROUTES.map((route) => (
+                <li key={route.title} className="border-b border-line">
+                  <Link href={route.href} className="group block py-5">
+                    <span className="flex items-center justify-between gap-4 text-lg font-semibold tracking-[-0.015em] group-hover:text-signal">
+                      {route.label}
+                      <ArrowGlyph className="group-hover:translate-x-0.5" />
+                    </span>
+                    <span className="mt-1 block text-sm leading-relaxed text-muted">{route.detail}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
 
-            <div className="card p-6">
-              <h2 className="label-mono">Not sure what to write?</h2>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-soft">
-                Run the diagnostic first. It takes a moment and gives you the vocabulary
-                for the rest.
-              </p>
-              <CtaLink href="/#bottleneck" variant="secondary" className="mt-5 w-full">
-                {cta.primary.label} <ArrowGlyph />
-              </CtaLink>
-            </div>
+            <h2 className="label-mono mt-10">Direct</h2>
+            <a href={`mailto:${site.email}`} className="mt-3 block break-all text-lg text-ink transition-colors hover:text-signal">
+              {site.email}
+            </a>
 
-            <div className="card p-6">
-              <h2 className="label-mono">Direct</h2>
-              <a
-                href={`mailto:${site.email}`}
-                className="mt-3 block text-[0.9375rem] text-ink transition-colors hover:text-signal"
-              >
-                {site.email}
-              </a>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                We aim to respond within two business days.
-              </p>
-            </div>
+            {liveSocials.length > 0 ? (
+              <>
+                <h2 className="label-mono mt-10">Follow the build</h2>
+                <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                  {liveSocials.map((channel) => (
+                    <li key={channel.id}>
+                      <a href={channel.href} target="_blank" rel="noopener noreferrer me" className="text-[0.9375rem] text-ink-soft hover:text-signal">
+                        {channel.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
           </aside>
         </div>
       </Section>

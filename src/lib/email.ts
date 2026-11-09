@@ -1,148 +1,162 @@
 import "server-only";
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { Resend } from "resend";
 import { site } from "@/content/site";
 
 /**
- * Direct transactional delivery for the starter guide lead magnet, via Resend.
+ * Email via Resend — the provider already connected to this project.
  *
- * Set RESEND_API_KEY to activate. RESEND_FROM_EMAIL must be an address on a
- * domain verified in Resend — falls back to site.email, which will fail to
- * send until that domain is verified there too. Until RESEND_API_KEY is set,
- * this is a no-op: the form still succeeds, nothing is emailed.
+ *   RESEND_API_KEY          — activates everything below. Without it, every
+ *                             function is a logged no-op and forms still work.
+ *   RESEND_FROM_EMAIL       — sender address on a domain verified in Resend.
+ *   LEAD_NOTIFICATION_EMAIL — where Andrew is notified of new applications
+ *                             and subscribers. Falls back to the site email.
+ *   RESEND_AUDIENCE_ID      — optional Resend audience that subscribers are
+ *                             added to, for sending broadcasts later.
  */
-
-const GUIDE_PATH = join(process.cwd(), "public", "growth-system-starter-guide.pdf");
-const GUIDE_FILENAME = "YardScale-Growth-System-Starter-Guide.pdf";
 
 export type EmailResult = { delivered: boolean; error?: string };
 
-export async function sendGrowthCallNotificationEmail(
-  name: string,
-  email: string,
-  business: string,
-  website: string,
-  growthProblem: string,
-): Promise<EmailResult> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.info("[yardscale] RESEND_API_KEY not configured — growth call notification skipped");
-    return { delivered: false };
-  }
-
-  const notificationEmail = process.env.GROWTH_CALL_NOTIFICATION_EMAIL;
-  if (!notificationEmail) {
-    console.warn(
-      "[yardscale] GROWTH_CALL_NOTIFICATION_EMAIL not configured — growth call notification skipped",
-    );
-    return { delivered: false };
-  }
-
-  try {
-    const resend = new Resend(apiKey);
-    const from = process.env.RESEND_FROM_EMAIL || site.email;
-
-    const { error } = await resend.emails.send({
-      from: `${site.name} <${from}>`,
-      to: notificationEmail,
-      subject: `New YardScale Growth Call Lead — ${name}`,
-      html: buildGrowthCallNotificationHtml(name, email, business, website, growthProblem),
-    });
-
-    if (error) {
-      console.error("[yardscale] Growth call notification send failed", error);
-      return { delivered: false, error: error.message };
-    }
-    return { delivered: true };
-  } catch (error) {
-    console.error("[yardscale] growth call notification failed", error);
-    return { delivered: false, error: "Email send failed" };
-  }
+function client(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  return key ? new Resend(key) : null;
 }
 
-export async function sendStarterGuideEmail(name: string, email: string): Promise<EmailResult> {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.info("[yardscale] RESEND_API_KEY not configured — guide email skipped");
+const from = () => `${site.name} <${process.env.RESEND_FROM_EMAIL || site.email}>`;
+
+const notifyTo = () =>
+  process.env.LEAD_NOTIFICATION_EMAIL ||
+  process.env.GROWTH_CALL_NOTIFICATION_EMAIL ||
+  site.email;
+
+async function send(options: {
+  to: string;
+  subject: string;
+  html: string;
+  replyTo?: string;
+}): Promise<EmailResult> {
+  const resend = client();
+  if (!resend) {
+    console.info(`[yardscale] RESEND_API_KEY not set — email skipped: ${options.subject}`);
     return { delivered: false };
   }
 
   try {
-    const [pdf, resend] = await Promise.all([
-      readFile(GUIDE_PATH),
-      Promise.resolve(new Resend(apiKey)),
-    ]);
-
-    const from = process.env.RESEND_FROM_EMAIL || site.email;
-    const firstName = name.split(" ")[0] || name;
-
     const { error } = await resend.emails.send({
-      from: `${site.name} <${from}>`,
-      to: email,
-      subject: "Your Growth System Starter Guide",
-      html: buildEmailHtml(firstName),
-      attachments: [{ filename: GUIDE_FILENAME, content: pdf }],
+      from: from(),
+      to: options.to,
+      subject: options.subject,
+      html: options.html,
+      ...(options.replyTo ? { replyTo: options.replyTo } : {}),
     });
-
     if (error) {
       console.error("[yardscale] Resend send failed", error);
       return { delivered: false, error: error.message };
     }
     return { delivered: true };
   } catch (error) {
-    console.error("[yardscale] guide email failed", error);
+    console.error("[yardscale] email failed", error);
     return { delivered: false, error: "Email send failed" };
   }
 }
 
-function buildEmailHtml(firstName: string): string {
-  return `
-    <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 480px; margin: 0 auto;">
-      <p>Hi ${escapeHtml(firstName)},</p>
-      <p>Here's your copy of the ${escapeHtml(site.name)} Growth System Starter Guide — the six-stage growth system, how to find your bottleneck without guessing, and what to build first.</p>
-      <p>It's attached to this email as a PDF.</p>
-      <p>Questions about your own bottleneck? Just reply — a person reads this inbox.</p>
-      <p style="color: #84827c; font-size: 13px; margin-top: 24px;">${escapeHtml(site.tagline)}</p>
-    </div>
-  `.trim();
+/** Internal notification with every answer from an application or message. */
+export function notifyApplication(input: {
+  kind: string;
+  name: string;
+  email: string;
+  platform: string;
+  answers: { label: string; value: string }[];
+}): Promise<EmailResult> {
+  const rows = input.answers
+    .filter((a) => a.value)
+    .map(
+      (a) => `
+        <p style="margin: 18px 0 4px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b6b66;">${escapeHtml(a.label)}</p>
+        <p style="margin: 0; white-space: pre-wrap;">${escapeHtml(a.value)}</p>`,
+    )
+    .join("");
+
+  return send({
+    to: notifyTo(),
+    replyTo: input.email,
+    subject: `New ${input.kind} — ${input.name}`,
+    html: wrap(`
+      <h2 style="margin: 0 0 6px; font-size: 18px;">New ${escapeHtml(input.kind)}</h2>
+      <p style="margin: 0; color: #6b6b66; font-size: 13px;">
+        ${escapeHtml(input.name)} · <a href="mailto:${escapeHtml(input.email)}">${escapeHtml(input.email)}</a>
+        ${input.platform ? ` · via ${escapeHtml(input.platform)}` : ""}
+      </p>
+      ${rows}
+      <p style="margin-top: 28px; color: #6b6b66; font-size: 13px;">Reply to this email to answer ${escapeHtml(input.name)} directly.</p>
+    `),
+  });
 }
 
-function buildGrowthCallNotificationHtml(
-  name: string,
-  email: string,
-  business: string,
-  website: string,
-  growthProblem: string,
-): string {
-  const businessSection = business ? `<p><strong>Business:</strong> ${escapeHtml(business)}</p>` : "";
-  const websiteSection = website
-    ? `<p><strong>Website:</strong> <a href="${escapeHtml(website)}" style="color: #cdff2e; text-decoration: none;">${escapeHtml(website)}</a></p>`
-    : "";
+/** Confirmation to the applicant, so they know it arrived and what happens next. */
+export function confirmApplication(input: {
+  kind: "coaching" | "partnership";
+  name: string;
+  email: string;
+}): Promise<EmailResult> {
+  const first = input.name.split(" ")[0] || input.name;
+  const label = input.kind === "coaching" ? "coaching application" : "partnership application";
+  return send({
+    to: input.email,
+    subject: `We received your ${label}`,
+    html: wrap(`
+      <p>Hi ${escapeHtml(first)},</p>
+      <p>Your ${label} has arrived. ${escapeHtml(site.founder)} reads every application personally.</p>
+      <p>If it looks like a fit, you will get a reply inviting you to a conversation. If it is not a fit, you will be told that too. Applying does not guarantee a place.</p>
+      <p>If you want to add anything, reply to this email.</p>
+      <p style="color: #6b6b66; font-size: 13px; margin-top: 24px;">${escapeHtml(site.name)}</p>
+    `),
+  });
+}
 
-  return `
-    <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1a1a1a;">
-      <div style="background: #f5f5f5; padding: 20px; margin-bottom: 20px; border-radius: 8px;">
-        <h2 style="margin: 0 0 16px 0; font-size: 18px;">New Growth Call Submission</h2>
-      </div>
+/** Welcome email for a new subscriber. */
+export function welcomeSubscriber(input: { name: string; email: string }): Promise<EmailResult> {
+  const first = input.name.split(" ")[0];
+  return send({
+    to: input.email,
+    subject: "You're on the YardScale build notes",
+    html: wrap(`
+      <p>${first ? `Hi ${escapeHtml(first)},` : "Hi,"}</p>
+      <p>You are on the list. You will hear from ${escapeHtml(site.founder)} when there is something worth sending: new lessons, build breakdowns and what is being learned building real software products.</p>
+      <p>In the meantime, the first module of Zero to SaaS is open to read: <a href="${site.url}/academy/zero-to-saas">${site.url.replace(/^https?:\/\//, "")}/academy/zero-to-saas</a></p>
+      <p>Reply to this email any time. A person reads it.</p>
+      <p style="color: #6b6b66; font-size: 13px; margin-top: 24px;">${escapeHtml(site.name)} · You can unsubscribe by replying "unsubscribe".</p>
+    `),
+  });
+}
 
-      <div style="line-height: 1.6;">
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}" style="color: #cdff2e; text-decoration: none;">${escapeHtml(email)}</a></p>
-        ${businessSection}
-        ${websiteSection}
+/** Adds a subscriber to the Resend audience, when one is configured. */
+export async function addToAudience(input: { name: string; email: string }): Promise<boolean> {
+  const resend = client();
+  const audienceId = process.env.RESEND_AUDIENCE_ID;
+  if (!resend || !audienceId) return false;
 
-        <p style="margin-top: 24px;"><strong>What they need help with:</strong></p>
-        <div style="background: #f9f9f9; padding: 12px; border-left: 3px solid #cdff2e; margin: 8px 0;">
-          <p style="margin: 0; white-space: pre-wrap;">${escapeHtml(growthProblem)}</p>
-        </div>
+  try {
+    const [firstName, ...rest] = input.name.split(" ");
+    const { error } = await resend.contacts.create({
+      audienceId,
+      email: input.email,
+      firstName: firstName || undefined,
+      lastName: rest.join(" ") || undefined,
+      unsubscribed: false,
+    });
+    if (error) {
+      console.error("[yardscale] Resend audience add failed", error);
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("[yardscale] Resend audience add failed", error);
+    return false;
+  }
+}
 
-        <p style="margin-top: 24px; color: #666; font-size: 13px;">
-          Submitted via YardScale Digital growth call request form at ${escapeHtml(site.url)}
-        </p>
-      </div>
-    </div>
-  `.trim();
+function wrap(inner: string): string {
+  return `<div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 560px; margin: 0 auto; color: #1a1a1a; line-height: 1.6;">${inner}</div>`;
 }
 
 function escapeHtml(value: string): string {
