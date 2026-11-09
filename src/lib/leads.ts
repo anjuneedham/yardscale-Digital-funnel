@@ -37,7 +37,10 @@ export function readContext(body: Record<string, unknown>): Context {
 }
 
 const configured = () => ({
-  db: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY),
+  db: Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY),
+  ),
   email: Boolean(process.env.RESEND_API_KEY),
   webhook: (kind: "subscriber" | "application") =>
     Boolean(

@@ -5,7 +5,7 @@
 | Piece | State |
 | --- | --- |
 | Site, 7 pages, Academy, forms, SEO, sitemap | Built. Builds clean. |
-| Supabase lead storage | **Needs migration applied** (`supabase/migrations/20261109_create_leads.sql`) + 2 env vars on Vercel |
+| Supabase lead storage | Migration applied. Writes with the publishable key, insert-only (the project is shared with AgriLoop, so no service key is held by this site). Set `SUPABASE_SERVICE_ROLE_KEY` only if you move leads to their own project |
 | Resend email | `RESEND_API_KEY` already on Vercel production. Needs `RESEND_FROM_EMAIL` (verified domain) + `LEAD_NOTIFICATION_EMAIL` |
 | Hero video | Placeholder until `NEXT_PUBLIC_HERO_VIDEO_URL` or `heroVideo.url` is set |
 | Skool / Discord | Not created. Set `NEXT_PUBLIC_SKOOL_URL` / `NEXT_PUBLIC_DISCORD_URL` |

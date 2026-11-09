@@ -42,3 +42,8 @@ create index if not exists idx_subscribers_created_at on public.subscribers (cre
 
 alter table public.subscribers enable row level security;
 alter table public.applications enable row level security;
+
+-- Applied 2026-11-09 (second migration): the site writes with the publishable
+-- key, insert only. Nothing can be read, updated or deleted through it.
+create policy "anon can submit subscribers" on public.subscribers for insert to anon with check (true);
+create policy "anon can submit applications" on public.applications for insert to anon with check (true);
