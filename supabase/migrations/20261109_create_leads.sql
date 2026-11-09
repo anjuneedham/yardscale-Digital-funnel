@@ -47,3 +47,10 @@ alter table public.applications enable row level security;
 -- key, insert only. Nothing can be read, updated or deleted through it.
 create policy "anon can submit subscribers" on public.subscribers for insert to anon with check (true);
 create policy "anon can submit applications" on public.applications for insert to anon with check (true);
+
+-- Third migration: the table defaults did not grant INSERT to anon, and did
+-- grant TRUNCATE/REFERENCES/TRIGGER. Reset to insert-only.
+revoke all on public.subscribers from anon, authenticated;
+revoke all on public.applications from anon, authenticated;
+grant insert on public.subscribers to anon;
+grant insert on public.applications to anon;

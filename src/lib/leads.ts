@@ -63,19 +63,22 @@ export async function recordSubscriber(input: {
   const db = (async () => {
     const supabase = getSupabaseClient();
     if (!supabase) return false;
-    const { error } = await supabase.from("subscribers").upsert(
-      {
-        email,
-        name: input.name || null,
-        origin: input.origin || null,
-        platform: input.context.platform || null,
-        attribution: input.context.attribution,
-      },
-      // A repeat signup keeps the original row and its first-touch attribution.
-      { onConflict: "email", ignoreDuplicates: true },
-    );
-    if (error) console.error("[yardscale] subscriber insert failed", error);
-    return !error;
+    // Plain insert: ON CONFLICT would need read access, which the insert-only
+    // key deliberately lacks. A duplicate email (23505) means they are already
+    // subscribed, which is a success.
+    const { error } = await supabase.from("subscribers").insert({
+      email,
+      name: input.name || null,
+      origin: input.origin || null,
+      platform: input.context.platform || null,
+      attribution: input.context.attribution,
+    });
+    if (error && error.code !== "23505") {
+      console.error("[yardscale] subscriber insert failed", error);
+      return false;
+    }
+    return true;
+
   })();
 
   const [stored, inAudience, welcomed, forwarded] = await Promise.all([
